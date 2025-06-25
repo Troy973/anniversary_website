@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Happy 2nd Anniversary!</title>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     * {
       box-sizing: border-box;
@@ -15,17 +16,25 @@
       font-family: 'Quicksand', sans-serif;
       color: #4d0039;
       text-align: center;
-      padding: 30px 15px 80px; /* <== BINAWASAN KO SA TAAS */
+      padding: 40px 15px 80px;
       min-height: 100vh;
       overflow-x: hidden;
+      background-attachment: fixed;
     }
     h1 {
       font-family: 'Great Vibes', cursive;
-      font-size: 2.8rem;
+      font-size: 3.2rem;
       color: #d8006a;
-      margin-bottom: 25px;
+      margin-bottom: 30px;
       text-shadow: 3px 3px 12px #ffb6d7;
       user-select: none;
+    }
+    .fade-in {
+      animation: fadeIn 1.5s ease forwards;
+      opacity: 0;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
     .card {
       background: rgba(255, 255, 255, 0.95);
@@ -43,24 +52,40 @@
       aspect-ratio: 600 / 310;
       margin: 20px auto 30px;
       border-radius: 16px;
-      overflow: hidden;
+      overflow: visible;
+      box-shadow: 0 12px 30px rgba(255, 102, 153, 0.35);
       background: #fff0f5;
     }
     .slide {
       position: absolute;
-      top: 0; left: 0;
+      top: 50%; left: 50%;
       width: 100%;
       height: 100%;
+      max-height: 320px;
       object-fit: cover;
       border: 5px solid #ff4d88;
       border-radius: 16px;
       opacity: 0;
-      transition: opacity 0.6s ease;
+      transition: opacity 0.8s ease, transform 0.4s ease, box-shadow 0.4s ease;
       pointer-events: none;
+      user-select: none;
+      transform: translate(-50%, -50%) scale(0.95);
+      filter: drop-shadow(0 0 8px #ff699c88);
+      z-index: 1;
+      background: white;
     }
     .slide.active {
       opacity: 1;
       pointer-events: auto;
+      transform: translate(-50%, -50%) scale(1.05);
+      box-shadow: 0 12px 30px rgba(255, 77, 136, 0.8);
+      filter: drop-shadow(0 0 15px #ff4d88);
+      z-index: 5;
+    }
+    .slide.active:active {
+      transform: translate(-50%, -50%) scale(1.1);
+      box-shadow: 0 16px 40px rgba(255, 77, 136, 1);
+      filter: drop-shadow(0 0 22px #ff3377);
     }
     .nav-buttons {
       margin-top: 15px;
@@ -80,10 +105,12 @@
       cursor: pointer;
       box-shadow: 0 5px 15px rgba(255, 102, 153, 0.45);
       transition: all 0.35s ease;
+      user-select: none;
     }
     .nav-buttons button:hover {
       background: linear-gradient(45deg, #e60073, #ff4d88);
       transform: scale(1.08);
+      box-shadow: 0 8px 20px rgba(230, 0, 115, 0.6);
     }
     #loveContainer {
       margin-top: 30px;
@@ -105,10 +132,14 @@
       color: #b37799;
       font-style: italic;
     }
-
+    /* ✅ Responsive Fixes */
     @media (max-width: 320px) {
       h1 {
-        font-size: 2.2rem;
+        font-size: 2rem;
+      }
+      .slideshow-container {
+        aspect-ratio: unset;
+        height: auto;
       }
       .slide {
         max-height: 180px;
@@ -121,14 +152,22 @@
       .nav-buttons button {
         width: 90%;
         font-size: 1rem;
+        padding: 10px 0;
+      }
+      .card {
+        padding: 20px 10px;
+      }
+      #loveContainer {
+        font-size: 1rem;
+        padding: 16px 18px;
       }
     }
   </style>
 </head>
 <body>
-  <h1>Happy 2nd Anniversary, Mahal ko! 💖</h1>
+  <h1 class="fade-in">Happy 2nd Anniversary, Mahal ko! 💖</h1>
 
-  <section class="card">
+  <section class="card fade-in">
     <div class="slideshow-container">
       <img src="482057080_987998880095637_8400752815292307246_n.jpg" alt="Us 1" class="slide active" />
       <img src="484052271_988004476761744_3876532500821763193_n.jpg" alt="Us 2" class="slide" />
@@ -180,16 +219,18 @@
       slideInterval = setInterval(nextSlide, 5000);
     }
 
-    // Try to auto-play audio on load
+    // Confetti + Auto-play audio on load
     window.addEventListener('load', () => {
       const audio = document.getElementById('bgMusic');
       audio.play().catch(() => {});
-    });
 
-    window.addEventListener('click', function enableAudio() {
-      const audio = document.getElementById('bgMusic');
-      audio.play().catch(() => {});
-      window.removeEventListener('click', enableAudio);
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 200,
+          spread: 100,
+          origin: { y: 0.6 }
+        });
+      }
     });
   </script>
 </body>
