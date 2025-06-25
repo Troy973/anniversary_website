@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Happy 2nd Anniversary!</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Quicksand&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     * {
@@ -23,7 +23,7 @@
       background-attachment: fixed;
     }
     h1 {
-      font-family: 'Great Vibes', cursive;
+      font-family: 'Satisfy', cursive;
       font-size: 3rem;
       color: #d8006a;
       margin-bottom: 30px;
@@ -130,18 +130,37 @@
       color: #b37799;
       font-style: italic;
     }
+
     .heart {
       position: fixed;
       bottom: -40px;
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
       background-color: #ff4d88;
-      border-radius: 50% 50% 0 0;
-      opacity: 0.8;
+      border-radius: 10px 10px 0 0;
+      opacity: 0.9;
       animation: floatUp 6s linear infinite;
       pointer-events: none;
       z-index: 9999;
     }
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      background-color: #ff4d88;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+    }
+    .heart::before {
+      top: -9px;
+      left: 0;
+    }
+    .heart::after {
+      left: -9px;
+      top: 0;
+    }
+
     @keyframes floatUp {
       0% {
         transform: translateY(0);
@@ -152,6 +171,7 @@
         opacity: 0;
       }
     }
+
     @media (max-width: 320px) {
       h1 {
         font-size: 2rem;
@@ -217,7 +237,6 @@
       slideInterval = setInterval(nextSlide, 5000);
     }
 
-    // Play music on load
     window.addEventListener('load', () => {
       const audio = document.getElementById('bgMusic');
       audio.play().catch(() => {});
@@ -228,11 +247,12 @@
       });
 
       // Floating hearts
-      for (let i = 0; i < 8; i++) {
+      for (let i = 0; i < 10; i++) {
         const heart = document.createElement('div');
         heart.classList.add('heart');
-        heart.style.left = (i * 10 + Math.random() * 10) + 'vw';
-        heart.style.animationDuration = (4 + Math.random() * 3) + 's';
+        heart.style.left = (i * 8 + Math.random() * 5) + 'vw';
+        heart.style.animationDuration = (5 + Math.random() * 3) + 's';
+        heart.style.animationDelay = (Math.random() * 4) + 's';
         document.body.appendChild(heart);
       }
     });
