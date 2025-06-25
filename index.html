@@ -22,9 +22,9 @@
     }
     h1 {
       font-family: 'Great Vibes', cursive;
-      font-size: 2.6rem;
+      font-size: 2.8rem;
       color: #d8006a;
-      margin: 15px auto 30px;
+      margin: 20px auto 25px; /* ← tinaasan ng konti */
       text-shadow: 3px 3px 12px #ffb6d7;
       user-select: none;
     }
@@ -131,6 +131,8 @@
       color: #b37799;
       font-style: italic;
     }
+
+    /* ✅ Responsive Fixes */
     @media (max-width: 320px) {
       h1 {
         font-size: 2rem;
@@ -157,8 +159,6 @@
       }
       #loveContainer {
         font-size: 1rem;
-        padding: 16px 18px;
-      }
 <!DOCTYPE html>
 <html lang="tl">
 <head>
@@ -183,9 +183,9 @@
     }
     h1 {
       font-family: 'Great Vibes', cursive;
-      font-size: 2.6rem;
+      font-size: 2.8rem;
       color: #d8006a;
-      margin: 15px auto 30px;
+      margin: 20px auto 25px; /* ← tinaasan ng konti */
       text-shadow: 3px 3px 12px #ffb6d7;
       user-select: none;
     }
@@ -292,6 +292,8 @@
       color: #b37799;
       font-style: italic;
     }
+
+    /* ✅ Responsive Fixes */
     @media (max-width: 320px) {
       h1 {
         font-size: 2rem;
@@ -328,12 +330,8 @@
 
   <section class="card fade-in">
     <div class="slideshow-container">
-      <a href="482057080_987998880095637_8400752815292307246_n.jpg" target="_blank">
-        <img src="482057080_987998880095637_8400752815292307246_n.jpg" alt="Us 1" class="slide active" />
-      </a>
-      <a href="484052271_988004476761744_3876532500821763193_n.jpg" target="_blank">
-        <img src="484052271_988004476761744_3876532500821763193_n.jpg" alt="Us 2" class="slide" />
-      </a>
+      <img src="482057080_987998880095637_8400752815292307246_n.jpg" alt="Us 1" class="slide active" />
+      <img src="484052271_988004476761744_3876532500821763193_n.jpg" alt="Us 2" class="slide" />
     </div>
 
     <nav class="nav-buttons">
@@ -383,6 +381,7 @@
       slideInterval = setInterval(nextSlide, 5000);
     }
 
+    // Confetti and auto audio
     window.addEventListener('load', () => {
       confetti({
         particleCount: 200,
@@ -392,13 +391,16 @@
       document.getElementById('bgMusic').play().catch(() => {});
     });
 
-    // Auto-enable audio without user click (may not work on all browsers)
-    window.addEventListener('click', () => {
+    // Enable audio on mobile after click
+    window.addEventListener('click', function enableAudio() {
       document.getElementById('bgMusic').play().catch(() => {});
+      window.removeEventListener('click', enableAudio);
     });
   </script>
 </body>
-</html>￼Enter    }
+</html>￼Enter        padding: 16px 18px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -406,12 +408,8 @@
 
   <section class="card fade-in">
     <div class="slideshow-container">
-      <a href="482057080_987998880095637_8400752815292307246_n.jpg" target="_blank">
-        <img src="482057080_987998880095637_8400752815292307246_n.jpg" alt="Us 1" class="slide active" />
-      </a>
-      <a href="484052271_988004476761744_3876532500821763193_n.jpg" target="_blank">
-        <img src="484052271_988004476761744_3876532500821763193_n.jpg" alt="Us 2" class="slide" />
-      </a>
+      <img src="482057080_987998880095637_8400752815292307246_n.jpg" alt="Us 1" class="slide active" />
+      <img src="484052271_988004476761744_3876532500821763193_n.jpg" alt="Us 2" class="slide" />
     </div>
 
     <nav class="nav-buttons">
@@ -424,9 +422,9 @@
       <p>Happy 2nd Anniversary! 💖</p>
     </article>
   </section>
-oter>With all my love &hearts;</footer>
 
-  <audio id="bgMusic" autoplay loop>
+  <footer>With all my love &hearts;</footer>
+dio id="bgMusic" autoplay loop>
     <source src="Paraiso by Smokey Mountain piano cover  sheet music  lyrics.mp3" type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>
@@ -449,3 +447,5 @@ oter>With all my love &hearts;</footer>
       resetInterval();
     }
 
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
