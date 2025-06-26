@@ -24,7 +24,6 @@
       font-family: 'Great Vibes', cursive;
       font-size: 2.8rem;
       color: #d8006a;
-      margin-top: 10px; /* tinaasan ng konti */
       margin-bottom: 25px;
       text-shadow: 3px 3px 12px #ffb6d7;
       user-select: none;
@@ -172,6 +171,8 @@
         opacity: 0;
       }
     }
+
+    /* ✅ Responsive Fixes */
     @media (max-width: 320px) {
       h1 {
         font-size: 2rem;
@@ -210,6 +211,7 @@
     <div class="slideshow-container">
       <img src="482057080_987998880095637_8400752815292307246_n.jpg" alt="Us 1" class="slide active" />
       <img src="484052271_988004476761744_3876532500821763193_n.jpg" alt="Us 2" class="slide" />
+      
     </div>
 
     <nav class="nav-buttons">
@@ -271,21 +273,6 @@
       document.body.appendChild(heart);
     }
 
-    // ▶️ AUDIO PLAY ON CLICK
-    window.addEventListener('click', function enableAudioClick() {
-      const audio = document.getElementById('bgMusic');
-      audio.play().catch(() => {});
-      window.removeEventListener('click', enableAudioClick);
-    });
-
-    // ▶️ AUDIO PLAY ON SCROLL
-    window.addEventListener('scroll', function enableAudioScroll() {
-      const audio = document.getElementById('bgMusic');
-      audio.play().catch(() => {});
-      window.removeEventListener('scroll', enableAudioScroll);
-    });
-
-    // 🎉 Confetti on load
     window.addEventListener('load', () => {
       confetti({
         particleCount: 200,
@@ -293,6 +280,13 @@
         origin: { y: 0.6 }
       });
     });
+
+    window.addEventListener('click', function enableAudio() {
+      const audio = document.getElementById('bgMusic');
+      audio.play().catch(() => {});
+      window.removeEventListener('click', enableAudio);
+    });
   </script>
 </body>
 </html>
+
