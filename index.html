@@ -161,9 +161,37 @@
       left: -9px;
       top: 0;
     }
-    @keyframes floatUp {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-110vh); opacity: 0; }
+    /* ✅ Responsive Fixes */
+@media (max-width: 320px) {
+  h1 {
+    font-size: 2rem;
+  }
+  .slideshow-container {
+    aspect-ratio: unset;
+    height: auto;
+  }
+  .slide {
+    max-height: 180px;
+  }
+  .nav-buttons {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  .nav-buttons button {
+    width: 90%;
+    font-size: 1rem;
+    padding: 10px 0;
+  }
+  .card {
+    padding: 20px 10px;
+  }
+  #loveContainer {
+    font-size: 1rem;
+    padding: 16px 18px;
+  }
+}
+
     }
   </style>
 </head>
