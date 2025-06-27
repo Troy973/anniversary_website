@@ -8,280 +8,116 @@
   <style>
     * {
       box-sizing: border-box;
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
     }
     body {
-      background: linear-gradient(135deg, #ffe6f0 0%, #fff0f5 50%, #ffe6e6 100%);
       font-family: 'Quicksand', sans-serif;
-      color: #4d0039;
+      background: linear-gradient(135deg, #ffe6f0 0%, #fff0f5 50%, #ffe6e6 100%);
+      padding: 20px;
       text-align: center;
-      padding: 40px 15px 80px;
-      min-height: 100vh;
-      overflow-x: hidden;
-      background-attachment: fixed;
+      color: #4d0039;
     }
-    h1 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.6rem;
-      color: #d8006a;
-      margin-bottom: 20px;
-      text-shadow: 3px 3px 12px #ffb6d7;
-      user-select: none;
-    }
-    .fade-in {
-      animation: fadeIn 1.5s ease forwards;
-      opacity: 0;
-    }
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-    .card {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 20px;
-      padding: 20px 16px;
-      max-width: clamp(320px, 90vw, 600px);
-      margin: 0 auto 30px;
-      box-shadow: 0 12px 30px rgba(255, 102, 153, 0.25);
-      backdrop-filter: blur(8px);
-    }
-    .slideshow-container {
-      position: relative;
-      width: 100%;
-      max-width: 600px;
-      aspect-ratio: 600 / 310;
-      margin: 20px auto;
-      border-radius: 16px;
-      overflow: visible;
-      box-shadow: 0 12px 30px rgba(255, 102, 153, 0.35);
-    }
-    .slide {
-      position: absolute;
-      top: 50%; left: 50%;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border: 5px solid #ff4d88;
-      border-radius: 16px;
-      opacity: 0;
-      transform: translate(-50%, -50%) scale(0.9);
-      transition: all 0.4s ease;
-      pointer-events: none;
-      z-index: 1;
-    }
-    .slide.active {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translate(-50%, -50%) scale(1);
-      z-index: 5;
-    }
-    .slide.active:hover {
-      transform: translate(-50%, -50%) scale(1.05);
-    }
-    .nav-buttons {
-      margin-top: 15px;
+    .envelope {
       display: flex;
+      flex-direction: column;
+      align-items: center;
       justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
+      height: 100vh;
     }
-    .nav-buttons button {
+    .envelope-box {
+      background: #fff0f5;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(255, 102, 153, 0.3);
+      max-width: 350px;
+      width: 100%;
+    }
+    .envelope-box h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #d8006a;
+    }
+    .envelope-box input[type="date"] {
+      padding: 10px;
+      font-size: 1rem;
+      border: 2px solid #ff4d88;
+      border-radius: 10px;
+      outline: none;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    .envelope-box button {
       background: linear-gradient(45deg, #ff4d88, #ff99bb);
       border: none;
       color: white;
-      padding: 10px 26px;
-      border-radius: 35px;
+      padding: 10px 20px;
+      border-radius: 25px;
       font-size: 1rem;
-      font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(255, 102, 153, 0.4);
     }
-    .nav-buttons button:hover {
-      transform: scale(1.08);
-    }
-    #loveContainer {
-      margin-top: 20px;
-      text-align: left;
-      font-size: 1.1rem;
-      line-height: 1.6;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      background: #fff0f5;
-      padding: 18px 24px;
-      border-radius: 20px;
-    }
-    footer {
-      margin-top: 40px;
-      font-size: 1rem;
-      color: #b37799;
-      font-style: italic;
-    }
-    .heart {
-      position: fixed;
-      bottom: -40px;
-      width: 18px;
-      height: 18px;
-      background-color: #ff4d88;
-      border-radius: 10px 10px 0 0;
-      opacity: 0.9;
-      animation: floatUp 5.5s linear infinite;
-      pointer-events: none;
-      z-index: 9999;
-    }
-    .heart::before,
-    .heart::after {
-      content: '';
-      position: absolute;
-      background-color: #ff4d88;
-      border-radius: 50%;
-      width: 18px;
-      height: 18px;
-    }
-    .heart::before {
-      top: -9px;
-      left: 0;
-    }
-    .heart::after {
-      left: -9px;
-      top: 0;
-    }
-    @keyframes floatUp {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-110vh); opacity: 0; }
+    #mainContent {
+      display: none;
     }
 
-    #passwordModal {
-      position: fixed;
-      inset: 0;
-      background: rgba(255, 240, 245, 0.98);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 99999;
+    /* Main content styles */
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.6rem;
+      margin-bottom: 20px;
+      color: #d8006a;
     }
-    #passwordForm {
+    .card {
       background: white;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(255, 0, 102, 0.3);
-      text-align: center;
+      border-radius: 20px;
+      padding: 20px;
+      max-width: 600px;
+      margin: 20px auto;
+      box-shadow: 0 12px 40px rgba(255, 102, 153, 0.25);
     }
-    #passwordForm label {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-      display: block;
-    }
-    #passwordForm input[type="date"] {
-      padding: 8px 12px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      margin-bottom: 12px;
-    }
-    #passwordForm button {
-      padding: 8px 16px;
-      background-color: #ff4d88;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
+    footer {
+      margin-top: 30px;
+      color: #b37799;
+      font-style: italic;
     }
   </style>
 </head>
 <body>
 
-<div id="passwordModal">
-  <form id="passwordForm">
-    <label>Enter your password (Anniversary date)</label>
-    <input type="date" id="passwordInput" required />
-    <br>
-    <button type="submit">Enter</button>
-  </form>
-</div>
-
-<div id="mainContent" style="display:none">
-  <h1 class="fade-in">Happy 2nd Anniversary, Mahal ko! 💖</h1>
-
-  <section class="card fade-in">
-    <div class="slideshow-container">
-      <img src="482057080_987998880095637_8400752815292307246_n.jpg" alt="Us 1" class="slide active" />
-      <img src="484052271_988004476761744_3876532500821763193_n.jpg" class="slide" />
+  <!-- Envelope section -->
+  <div class="envelope" id="envelopeLogin">
+    <div class="envelope-box">
+      <h2>📩 Enter your password</h2>
+      <input type="date" id="annivDate" />
+      <button onclick="checkPassword()">Open</button>
     </div>
+  </div>
 
-    <nav class="nav-buttons">
-      <button onclick="prevSlide()">⟨ Previous</button>
-      <button onclick="nextSlide()">Next ⟩</button>
-    </nav>
+  <!-- Hidden main content -->
+  <div id="mainContent">
+    <h1>Happy 2nd Anniversary, Mahal ko! 💖</h1>
+    <div class="card">
+      <p>Mahal, salamat sa dalawang taon ng saya, hirap, at pagmamahal.  
+      Ikaw ang aking lakas at inspirasyon.  
+      Nawa’y marami pa tayong araw na magkasama, puno ng tawanan at pag-ibig.  
+      Mahal na mahal kita. 💕</p>
+    </div>
+    <footer>With all my love &hearts;</footer>
+  </div>
 
-    <article id="loveContainer">
-      <p>Mahal, salamat sa dalawang taon ng saya, hirap, at pagmamahal. Ikaw ang aking lakas at inspirasyon. Nawa’y marami pa tayong mga araw na magkasama, puno ng tawanan at pag-ibig. Mahal na mahal kita.</p>
-      <p>Happy 2nd Anniversary! 💖</p>
-    </article>
-  </section>
-
-  <footer>With all my love &hearts;</footer>
-
-  <audio id="bgMusic" autoplay loop>
-    <source src="audio.mp3" type="audio/mpeg" />
-    Your browser does not support the audio element.
-  </audio>
-</div>
-
-<script>
-  const slides = document.querySelectorAll('.slide');
-  let currentIndex = 0;
-  let slideInterval = setInterval(nextSlide, 5000);
-
-  function showSlide(index) {
-    slides.forEach((slide, i) => {
-      slide.classList.toggle('active', i === index);
-    });
-  }
-
-  function nextSlide() {
-    currentIndex = (currentIndex + 1) % slides.length;
-    showSlide(currentIndex);
-    resetInterval();
-  }
-
-  function prevSlide() {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    showSlide(currentIndex);
-    resetInterval();
-  }
-
-  function resetInterval() {
-    clearInterval(slideInterval);
-    slideInterval = setInterval(nextSlide, 5000);
-  }
-
-  for (let i = 0; i < 8; i++) {
-    const heart = document.createElement('div');
-    heart.classList.add('heart');
-    heart.style.left = (i * 10 + Math.random() * 5) + 'vw';
-    const size = 16 + Math.random() * 6;
-    heart.style.width = size + 'px';
-    heart.style.height = size + 'px';
-    heart.style.animationDuration = (4 + Math.random() * 2) + 's';
-    document.body.appendChild(heart);
-  }
-
-  window.addEventListener('click', function enableAudio() {
-    const audio = document.getElementById('bgMusic');
-    audio.play().catch(() => {});
-    window.removeEventListener('click', enableAudio);
-  });
-
-  document.getElementById("passwordForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    const inputDate = document.getElementById("passwordInput").value;
-    if (inputDate === "2025-07-02") {
-      document.getElementById("passwordModal").style.display = "none";
-      document.getElementById("mainContent").style.display = "block";
-    } else {
-      alert("Maling password. Subukan ulit.");
+  <script>
+    function checkPassword() {
+      const inputDate = document.getElementById("annivDate").value;
+      if (inputDate === "2025-07-02") {
+        document.getElementById("envelopeLogin").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
+      } else {
+        alert("Wrong password! Hint: Anniversary date.");
+      }
     }
-  });
-</script>
+  </script>
 
 </body>
 </html>
