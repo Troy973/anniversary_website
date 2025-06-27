@@ -6,11 +6,8 @@
   <title>Happy 2nd Anniversary!</title>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand&display=swap" rel="stylesheet"/>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       font-family: 'Quicksand', sans-serif;
       background: linear-gradient(135deg, #ffe6f0, #fff0f5, #ffe6e6);
@@ -20,13 +17,14 @@
       min-height: 100vh;
     }
 
+    /* Envelope Section */
     #envelopeSection {
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-direction: column;
       height: 100vh;
       background: radial-gradient(#fff0f5, #ffe6f0);
-      flex-direction: column;
       gap: 20px;
     }
 
@@ -50,17 +48,10 @@
       transition: 0.4s;
     }
 
-    .envelope::before {
-      clip-path: polygon(0 0, 100% 0, 50% 50%);
-    }
+    .envelope::before { clip-path: polygon(0 0, 100% 0, 50% 50%); }
+    .envelope::after { clip-path: polygon(0 100%, 100% 100%, 50% 50%); }
 
-    .envelope::after {
-      clip-path: polygon(0 100%, 100% 100%, 50% 50%);
-    }
-
-    .envelope.open {
-      transform: scale(1.1) rotateX(180deg);
-    }
+    .envelope.open { transform: scale(1.1) rotateX(180deg); }
 
     #passwordSection {
       display: none;
@@ -88,16 +79,13 @@
       box-shadow: 0 4px 12px rgba(255, 0, 100, 0.3);
     }
 
-    #mainContent {
-      display: none;
-      padding: 20px;
-    }
+    /* Main Content */
+    #mainContent { display: none; padding: 20px; }
 
     h1 {
       font-family: 'Great Vibes', cursive;
       font-size: 2.5rem;
-      margin-top: 40px;
-      margin-bottom: 20px;
+      margin: 40px 0 20px;
       color: #d8006a;
       text-shadow: 2px 2px 8px #ffb6d7;
     }
@@ -116,9 +104,7 @@
       display: none;
     }
 
-    .slide.active {
-      display: block;
-    }
+    .slide.active { display: block; }
 
     #loveContainer {
       max-width: 600px;
@@ -151,14 +137,13 @@
       height: 18px;
     }
 
-    .heart::before {
-      top: -9px;
-      left: 0;
-    }
+    .heart::before { top: -9px; left: 0; }
+    .heart::after { top: 0; left: -9px; }
 
-    .heart::after {
-      top: 0;
-      left: -9px;
+    footer {
+      margin-top: 40px;
+      color: #b37799;
+      font-style: italic;
     }
 
     @keyframes floatUp {
@@ -170,15 +155,11 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
-
-    footer {
-      margin-top: 40px;
-      color: #b37799;
-      font-style: italic;
-    }
   </style>
 </head>
 <body>
+
+  <!-- Envelope Section -->
   <section id="envelopeSection">
     <div class="envelope" onclick="openEnvelope()"></div>
     <div id="passwordSection">
@@ -188,6 +169,7 @@
     </div>
   </section>
 
+  <!-- Main Content -->
   <section id="mainContent">
     <h1>Happy 2nd Anniversary, Mahal ko! 💖</h1>
 
@@ -205,15 +187,16 @@
     <footer>With all my love &hearts;</footer>
   </section>
 
+  <!-- Audio -->
   <audio id="bgMusic" loop>
     <source src="Paraiso by Smokey Mountain piano cover  sheet music  lyrics.mp3" type="audio/mpeg">
   </audio>
 
+  <!-- JS Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
     function openEnvelope() {
-      const envelope = document.querySelector('.envelope');
-      envelope.classList.add('open');
+      document.querySelector('.envelope').classList.add('open');
       setTimeout(() => {
         document.getElementById('passwordSection').style.display = 'flex';
       }, 800);
@@ -226,14 +209,10 @@
         document.getElementById('mainContent').style.display = 'block';
         playHearts();
         document.getElementById('bgMusic').play().catch(() => {});
-        confetti({
-          particleCount: 200,
-          spread: 100,
-          origin: { y: 0.6 }
-        });
+        confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
         startSlideshow();
       } else {
-        alert("Mali ang date! Clue: July 2, 2025 💖");
+        alert("Mali ang date! Hint: July 2, 2025 💖");
       }
     }
 
@@ -251,7 +230,6 @@
     function startSlideshow() {
       const slides = document.querySelectorAll('.slide');
       let current = 0;
-
       setInterval(() => {
         slides[current].classList.remove('active');
         current = (current + 1) % slides.length;
