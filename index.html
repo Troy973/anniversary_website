@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="tl">
 <head>
@@ -14,7 +15,7 @@
       overflow-x: hidden;
     }
 
-    /* Lock screen styles */
+    /* Lock Screen */
     #lockScreen {
       min-height: 100vh;
       display: flex;
@@ -29,7 +30,6 @@
       width: 150px;
       margin-bottom: 20px;
       transition: transform 0.3s ease;
-      cursor: pointer;
     }
 
     #lockScreen img:hover {
@@ -41,6 +41,8 @@
       font-size: 1rem;
       border: 2px solid #ff4d88;
       border-radius: 10px;
+      width: 220px;
+      text-align: center;
     }
 
     #lockScreen button {
@@ -142,7 +144,7 @@
 <!-- Lock Screen -->
 <div id="lockScreen">
   <img src="envelope_no_bg.png" alt="Envelope" />
-  <input type="text" id="dateInput" placeholder="Enter date (MM-DD)" />
+  <input type="text" id="dateInput" placeholder="Enter date (YYYY-MM-DD)" />
   <button onclick="unlock()">Open 💌</button>
   <p id="wrongDate" style="display: none;">Wrong date. Try again.</p>
 </div>
@@ -173,7 +175,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script>
-  const correctDate = "06-27";
+  const correctDate = "2025-06-27";
 
   function unlock() {
     const input = document.getElementById('dateInput').value.trim();
