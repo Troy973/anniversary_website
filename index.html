@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="tl">
 <head>
@@ -11,92 +12,112 @@
       margin: 0; padding: 0;
     }
     body {
-      background: linear-gradient(135deg, #ffe6f0 0%, #fff0f5 50%, #ffe6e6 100%);
+      background: linear-gradient(135deg, #ffe6f0, #fff0f5, #ffe6e6);
       font-family: 'Quicksand', sans-serif;
-      color: #4d0039;
       text-align: center;
+      color: #4d0039;
       min-height: 100vh;
       overflow-x: hidden;
-      background-attachment: fixed;
-    }
-    .envelope-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      flex-direction: column;
-      animation: fadeIn 2s ease-in-out;
-    }
-    .envelope {
-      width: 120px;
-      height: 80px;
-      background: #ff4d88;
-      position: relative;
-      transform: rotate(0deg);
-      box-shadow: 0 8px 25px rgba(255, 77, 136, 0.4);
-      border-radius: 4px;
-      transition: transform 0.5s ease;
-    }
-    .envelope::before {
-      content: '';
-      position: absolute;
-      top: -40px;
-      left: 0;
-      width: 0;
-      height: 0;
-      border-left: 60px solid transparent;
-      border-right: 60px solid transparent;
-      border-bottom: 40px solid #ff4d88;
-    }
-    .password-box {
-      margin-top: 20px;
-    }
-    .password-box input[type="date"] {
-      padding: 10px;
-      border-radius: 8px;
-      border: 2px solid #ff4d88;
-      font-size: 1rem;
-      outline: none;
-    }
-    .password-box button {
-      margin-top: 10px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      background: #ff4d88;
-      color: white;
-      font-weight: bold;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    #main-content {
-      display: none;
-      padding: 40px 15px 80px;
     }
     h1 {
       font-family: 'Great Vibes', cursive;
       font-size: 2.2rem;
       color: #d8006a;
-      margin-bottom: 25px;
+      margin: 25px 0;
       text-shadow: 3px 3px 12px #ffb6d7;
       user-select: none;
     }
-    .fade-in {
-      animation: fadeIn 1.5s ease forwards;
-      opacity: 0;
+
+    .envelope-wrapper {
+      margin-top: 60px;
+      display: flex;
+      justify-content: center;
     }
+
+    .envelope {
+      width: 220px;
+      height: 140px;
+      background: #ffc0cb;
+      position: relative;
+      border: 2px solid #ff7cae;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(255, 105, 180, 0.4);
+      transition: transform 0.3s ease;
+    }
+
+    .envelope::before {
+      content: '';
+      position: absolute;
+      top: -70px;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 110px solid transparent;
+      border-right: 110px solid transparent;
+      border-bottom: 70px solid #ffc0cb;
+      transition: transform 0.6s ease;
+      transform-origin: bottom;
+    }
+
+    .envelope.open::before {
+      transform: rotateX(180deg);
+    }
+
+    .prompt {
+      margin-top: 18px;
+      font-size: 1.1rem;
+      color: #b30059;
+    }
+
+    .password-form {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .password-form input {
+      padding: 10px;
+      border: 2px solid #ff99cc;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+
+    .password-form button {
+      background: #ff4d88;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      margin-left: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .password-form button:hover {
+      background: #e60073;
+    }
+
+    #mainContent {
+      display: none;
+      animation: fadeIn 1.5s ease forwards;
+    }
+
     @keyframes fadeIn {
+      from { opacity: 0; }
       to { opacity: 1; }
     }
+
+    /* Include your original styles here (slideshow, card, hearts, etc.) */
     .card {
       background: rgba(255, 255, 255, 0.95);
       border-radius: 20px;
       padding: 25px 20px;
       max-width: clamp(320px, 90vw, 600px);
-      margin: 0 auto 40px;
+      margin: 40px auto;
       box-shadow: 0 12px 40px rgba(255, 102, 153, 0.25);
       backdrop-filter: blur(8px);
     }
+
     .slideshow-container {
       position: relative;
       width: 100%;
@@ -108,6 +129,7 @@
       box-shadow: 0 12px 30px rgba(255, 102, 153, 0.35);
       background: #fff0f5;
     }
+
     .slide {
       position: absolute;
       top: 50%; left: 50%;
@@ -118,34 +140,22 @@
       border: 5px solid #ff4d88;
       border-radius: 16px;
       opacity: 0;
-      transition: opacity 0.8s ease, transform 0.4s ease, box-shadow 0.4s ease;
-      pointer-events: none;
-      user-select: none;
       transform: translate(-50%, -50%) scale(0.9);
-      filter: drop-shadow(0 0 8px #ff699c88);
-      z-index: 1;
-      background: white;
+      transition: 0.4s ease;
     }
+
     .slide.active {
       opacity: 1;
-      pointer-events: auto;
       transform: translate(-50%, -50%) scale(1);
-      box-shadow: 0 12px 30px rgba(255, 77, 136, 0.8);
-      filter: drop-shadow(0 0 15px #ff4d88);
-      z-index: 5;
     }
-    .slide.active:hover {
-      transform: translate(-50%, -50%) scale(1.05);
-      box-shadow: 0 16px 40px rgba(255, 77, 136, 1);
-      filter: drop-shadow(0 0 22px #ff3377);
-    }
+
     .nav-buttons {
       margin-top: 15px;
       display: flex;
       justify-content: center;
       gap: 14px;
-      flex-wrap: wrap;
     }
+
     .nav-buttons button {
       background: linear-gradient(45deg, #ff4d88, #ff99bb);
       border: none;
@@ -155,90 +165,111 @@
       font-size: 1.1rem;
       font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 5px 15px rgba(255, 102, 153, 0.45);
-      transition: all 0.35s ease;
-      user-select: none;
     }
-    .nav-buttons button:hover {
-      background: linear-gradient(45deg, #e60073, #ff4d88);
-      transform: scale(1.08);
-      box-shadow: 0 8px 20px rgba(230, 0, 115, 0.6);
-    }
+
     #loveContainer {
       margin-top: 30px;
       text-align: left;
-      font-size: 1.25rem;
-      line-height: 1.6;
-      max-width: clamp(320px, 90vw, 600px);
-      margin-left: auto;
-      margin-right: auto;
-      color: #7a0045;
-      background: #fff0f5;
-      padding: 22px 28px;
+      font-size: 1.2rem;
+      padding: 20px;
       border-radius: 20px;
-      box-shadow: 0 8px 18px rgba(230, 0, 115, 0.2);
+      background: #fff0f5;
+      color: #7a0045;
     }
+
     footer {
-      margin-top: 50px;
-      font-size: 1rem;
+      margin-top: 30px;
       color: #b37799;
-      font-style: italic;
     }
   </style>
 </head>
 <body>
-  <div class="envelope-container" id="lockScreen">
-    <div class="envelope"></div>
-    <div class="password-box">
-      <label for="anniv">Enter your password (Anniversary Date):</label><br>
-      <input type="date" id="anniv" />
-      <br><button onclick="checkDate()">Open</button>
-    </div>
+
+  <h1>Happy 2nd Anniversary 💖</h1>
+
+  <div class="envelope-wrapper">
+    <div class="envelope" onclick="openEnvelope(this)"></div>
+  </div>
+  <p class="prompt">Click the envelope to open ✉️</p>
+
+  <div class="password-form" id="passwordForm">
+    <p>Enter your anniversary date to unlock:</p>
+    <input type="date" id="passwordInput" />
+    <button onclick="checkPassword()">Submit</button>
+    <p id="errorMsg" style="color: red;"></p>
   </div>
 
-  <div id="main-content">
-    <h1 class="fade-in">Happy 2nd Anniversary, Mahal ko! 💖</h1>
-    <section class="card fade-in">
+  <div id="mainContent">
+    <section class="card">
       <div class="slideshow-container">
-        <img src="482057080_987998880095637_8400752815292307246_n.jpg" class="slide active" />
-        <img src="484052271_988004476761744_3876532500821763193_n.jpg" class="slide" />
+        <img src="img1.jpg" class="slide active" />
+        <img src="img2.jpg" class="slide" />
+        <img src="img3.jpg" class="slide" />
       </div>
+
       <nav class="nav-buttons">
         <button onclick="prevSlide()">⟨ Previous</button>
         <button onclick="nextSlide()">Next ⟩</button>
       </nav>
+
       <article id="loveContainer">
         <p>Mahal, salamat sa dalawang taon ng saya, hirap, at pagmamahal. Ikaw ang aking lakas at inspirasyon. Nawa’y marami pa tayong mga araw na magkasama, puno ng tawanan at pag-ibig. Mahal na mahal kita.</p>
         <p>Happy 2nd Anniversary! 💖</p>
       </article>
     </section>
+
     <footer>With all my love &hearts;</footer>
   </div>
 
+  <audio id="bgMusic" autoplay loop>
+    <source src="Paraiso by Smokey Mountain piano cover  sheet music  lyrics.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
-    const slides = document.querySelectorAll('.slide');
-    let currentIndex = 0;
-    function showSlide(index) {
-      slides.forEach((s, i) => s.classList.toggle('active', i === index));
+    // Envelope animation
+    function openEnvelope(el) {
+      el.classList.add('open');
+      document.querySelector('.prompt').style.display = 'none';
+      document.getElementById('passwordForm').style.display = 'block';
     }
+
+    function checkPassword() {
+      const input = document.getElementById("passwordInput").value;
+      const correct = "2025-07-02";
+      if (input === correct) {
+        document.getElementById("mainContent").style.display = "block";
+        document.getElementById("passwordForm").style.display = "none";
+        confetti({ particleCount: 100, spread: 80 });
+        document.getElementById("bgMusic").play().catch(() => {});
+      } else {
+        document.getElementById("errorMsg").innerText = "Mali ang petsa. 😢";
+      }
+    }
+
+    const slides = document.querySelectorAll(".slide");
+    let currentIndex = 0;
+
+    function showSlide(index) {
+      slides.forEach((s, i) => {
+        s.classList.toggle("active", i === index);
+      });
+    }
+
     function nextSlide() {
       currentIndex = (currentIndex + 1) % slides.length;
       showSlide(currentIndex);
     }
+
     function prevSlide() {
       currentIndex = (currentIndex - 1 + slides.length) % slides.length;
       showSlide(currentIndex);
     }
-    function checkDate() {
-      const inputDate = document.getElementById('anniv').value;
-      const correctDate = '2025-07-02';
-      if (inputDate === correctDate) {
-        document.getElementById('lockScreen').style.display = 'none';
-        document.getElementById('main-content').style.display = 'block';
-      } else {
-        alert("Mali ang petsa 😢. Try ulit.");
-      }
-    }
+
+    document.body.addEventListener('click', () => {
+      const audio = document.getElementById('bgMusic');
+      audio.play().catch(() => {});
+    }, { once: true });
   </script>
 </body>
 </html>
