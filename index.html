@@ -1,182 +1,127 @@
 <!DOCTYPE html>
 <html lang="tl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anniversary Surprise</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Anniversary!</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+    }
     body {
       font-family: 'Quicksand', sans-serif;
-      background: linear-gradient(135deg, #ffe6f0, #fff0f5, #ffe6e6);
-      text-align: center;
+      background: linear-gradient(135deg, #ffe6f0 0%, #fff0f5 50%, #ffe6e6 100%);
       min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    .envelope-container {
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      height: 100vh;
-      background: #fff0f5;
+      align-items: center;
+      flex-direction: column;
+      overflow: hidden;
     }
-
-    .envelope {
-      width: 200px;
-      height: 140px;
-      background: #ffb6d7;
+    #envelope-container {
       position: relative;
-      border-radius: 8px;
+      width: 250px;
+      height: auto;
       cursor: pointer;
-      box-shadow: 0 10px 30px rgba(255, 0, 102, 0.2);
-      transition: transform 0.4s;
+      transition: transform 0.5s ease;
     }
-
-    .envelope::before, .envelope::after {
-      content: "";
-      position: absolute;
-      background: #ff4d88;
-    }
-    .envelope::before {
-      width: 0;
-      height: 0;
-      border-left: 100px solid transparent;
-      border-right: 100px solid transparent;
-      border-bottom: 70px solid #ff4d88;
-      top: -70px;
-      left: 0;
-    }
-
-    .heart {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 30px;
-      height: 30px;
-      background: #fff;
-      transform: translate(-50%, -50%) rotate(45deg);
-      animation: pulse 1.5s infinite;
-    }
-    .heart::before, .heart::after {
-      content: '';
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      background: #fff;
-      border-radius: 50%;
-    }
-    .heart::before {
-      top: -15px;
-      left: 0;
-    }
-    .heart::after {
-      left: -15px;
-      top: 0;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(45deg); }
-      50% { transform: translate(-50%, -50%) scale(1.2) rotate(45deg); }
-    }
-
-    #passwordScreen {
+    #password-container, #main-content {
       display: none;
       flex-direction: column;
       align-items: center;
+      gap: 15px;
       margin-top: 20px;
     }
-
-    #dateInput {
+    input[type="date"] {
       padding: 10px;
       font-size: 1rem;
+      border-radius: 10px;
       border: 2px solid #ff4d88;
-      border-radius: 8px;
-      margin-bottom: 10px;
     }
-    #submitBtn {
+    button {
       padding: 10px 20px;
-      background: #ff4d88;
+      font-size: 1rem;
       border: none;
+      border-radius: 25px;
+      background: linear-gradient(45deg, #ff4d88, #ff99bb);
       color: white;
-      font-weight: bold;
-      border-radius: 8px;
       cursor: pointer;
     }
-
-    #mainContent {
-      display: none;
-      animation: fadeIn 1s ease forwards;
-      padding: 40px 20px;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    h1.typing {
+    #greeting {
       font-family: 'Great Vibes', cursive;
-      font-size: 2.5rem;
+      font-size: 2rem;
       color: #d8006a;
-      margin-bottom: 20px;
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 3px solid #d8006a;
-      width: 0;
-      animation: typing 3s steps(40, end) forwards, blink 0.7s infinite;
+      text-shadow: 2px 2px 6px #ffb6d7;
+      margin-top: 20px;
+      white-space: pre-wrap;
+      text-align: center;
+      max-width: 90vw;
     }
-
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
+    .fadeOut {
+      animation: fadeOut 1s forwards;
     }
-
-    @keyframes blink {
-      50% { border-color: transparent; }
+    @keyframes fadeOut {
+      to { opacity: 0; transform: scale(0.5); display: none; }
     }
   </style>
 </head>
 <body>
 
-<div class="envelope-container" id="envelopeSection">
-  <div class="envelope" onclick="openEnvelope()">
-    <div class="heart"></div>
+  <div id="envelope-container">
+    <img src="6ef7f8c6-c49c-4a91-8169-b0da78a1f36d.png" alt="Envelope" width="100%">
   </div>
-  <div id="passwordScreen">
-    <input type="date" id="dateInput">
-    <button id="submitBtn" onclick="checkPassword()">Enter</button>
+
+  <div id="password-container">
+    <label for="anniv">Enter Anniversary Date:</label>
+    <input type="date" id="anniv" />
+    <button onclick="checkPassword()">Open</button>
   </div>
-</div>
 
-<div id="mainContent">
-  <h1 class="typing">Happy 2nd Anniversary, Mahal ko! 💖</h1>
-  <p style="max-width: 500px; margin: auto; font-size: 1.2rem; color: #7a0045;">
-    Mahal, salamat sa dalawang taon ng saya, hirap, at pagmamahal. Ikaw ang aking lakas at inspirasyon. Nawa’y marami pa tayong mga araw na magkasama, puno ng tawanan at pag-ibig. Mahal na mahal kita.
-  </p>
-</div>
+  <div id="main-content">
+    <div id="greeting"></div>
+    <audio id="bgMusic" autoplay loop>
+      <source src="Paraiso by Smokey Mountain piano cover  sheet music  lyrics.mp3" type="audio/mpeg">
+    </audio>
+  </div>
 
-<audio id="bgMusic" loop>
-  <source src="Paraiso by Smokey Mountain piano cover  sheet music  lyrics.mp3" type="audio/mpeg">
-</audio>
+  <script>
+    const envelope = document.getElementById('envelope-container');
+    const passDiv = document.getElementById('password-container');
+    const mainDiv = document.getElementById('main-content');
+    const greeting = document.getElementById('greeting');
+    const music = document.getElementById('bgMusic');
 
-<script>
-  function openEnvelope() {
-    document.getElementById('passwordScreen').style.display = 'flex';
-  }
+    envelope.addEventListener('click', () => {
+      envelope.classList.add('fadeOut');
+      setTimeout(() => {
+        envelope.style.display = 'none';
+        passDiv.style.display = 'flex';
+      }, 1000);
+    });
 
-  function checkPassword() {
-    const input = document.getElementById('dateInput').value;
-    if (input === '2025-07-02') {
-      document.getElementById('envelopeSection').style.display = 'none';
-      document.getElementById('mainContent').style.display = 'block';
-      document.getElementById('bgMusic').play();
-    } else {
-      alert('Mali ang petsa, mahal! 😅');
+    function checkPassword() {
+      const dateInput = document.getElementById('anniv').value;
+      if (dateInput === '2025-07-02') {
+        passDiv.style.display = 'none';
+        mainDiv.style.display = 'flex';
+        typeMessage("Happy 2nd Anniversary, Mahal ko! 💖\n\nMahal, salamat sa dalawang taon ng saya, hirap, at pagmamahal. Ikaw ang aking lakas at inspirasyon. Nawa’y marami pa tayong mga araw na magkasama, puno ng tawanan at pag-ibig. Mahal na mahal kita.");
+        music.play().catch(() => {});
+      } else {
+        alert("Maling petsa. Subukan ulit.");
+      }
     }
-  }
-</script>
+
+    function typeMessage(text) {
+      let i = 0;
+      greeting.textContent = '';
+      const typer = setInterval(() => {
+        greeting.textContent += text[i];
+        i++;
+        if (i >= text.length) clearInterval(typer);
+      }, 50);
+    }
+  </script>
+
 </body>
 </html>
