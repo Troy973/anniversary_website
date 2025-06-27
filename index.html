@@ -2,240 +2,181 @@
 <html lang="tl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Happy 2nd Anniversary!</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand&display=swap" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anniversary Surprise</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Quicksand', sans-serif;
       background: linear-gradient(135deg, #ffe6f0, #fff0f5, #ffe6e6);
-      color: #4d0039;
       text-align: center;
-      overflow-x: hidden;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    /* Envelope Section */
-    #envelopeSection {
+    .envelope-container {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
       height: 100vh;
-      background: radial-gradient(#fff0f5, #ffe6f0);
-      gap: 20px;
+      background: #fff0f5;
     }
 
     .envelope {
-      width: 150px;
-      height: 100px;
-      background: #ff80aa;
+      width: 200px;
+      height: 140px;
+      background: #ffb6d7;
       position: relative;
-      border-radius: 5px;
-      box-shadow: 0 8px 25px rgba(255, 0, 100, 0.3);
+      border-radius: 8px;
       cursor: pointer;
-      transition: transform 0.4s ease;
+      box-shadow: 0 10px 30px rgba(255, 0, 102, 0.2);
+      transition: transform 0.4s;
     }
 
     .envelope::before, .envelope::after {
-      content: '';
+      content: "";
       position: absolute;
-      width: 100%;
-      height: 100%;
-      background: #ff99bb;
-      transition: 0.4s;
-    }
-
-    .envelope::before { clip-path: polygon(0 0, 100% 0, 50% 50%); }
-    .envelope::after { clip-path: polygon(0 100%, 100% 100%, 50% 50%); }
-
-    .envelope.open { transform: scale(1.1) rotateX(180deg); }
-
-    #passwordSection {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      animation: fadeIn 1s forwards;
-    }
-
-    #passwordSection input[type="date"] {
-      padding: 10px 15px;
-      border: 2px solid #ff4d88;
-      border-radius: 10px;
-      font-size: 1rem;
-    }
-
-    #passwordSection button {
       background: #ff4d88;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(255, 0, 100, 0.3);
     }
-
-    /* Main Content */
-    #mainContent { display: none; padding: 20px; }
-
-    h1 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.5rem;
-      margin: 40px 0 20px;
-      color: #d8006a;
-      text-shadow: 2px 2px 8px #ffb6d7;
-    }
-
-    .slideshow-container {
-      max-width: 600px;
-      margin: 20px auto;
-      position: relative;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 12px 30px rgba(255, 102, 153, 0.4);
-    }
-
-    .slide {
-      width: 100%;
-      display: none;
-    }
-
-    .slide.active { display: block; }
-
-    #loveContainer {
-      max-width: 600px;
-      margin: 20px auto;
-      padding: 20px;
-      background: #fff0f5;
-      border-radius: 20px;
-      color: #7a0045;
-      box-shadow: 0 8px 18px rgba(230, 0, 115, 0.2);
+    .envelope::before {
+      width: 0;
+      height: 0;
+      border-left: 100px solid transparent;
+      border-right: 100px solid transparent;
+      border-bottom: 70px solid #ff4d88;
+      top: -70px;
+      left: 0;
     }
 
     .heart {
-      position: fixed;
-      bottom: -40px;
-      width: 18px;
-      height: 18px;
-      background-color: #ff4d88;
-      border-radius: 10px 10px 0 0;
-      animation: floatUp 5.5s linear infinite;
-      opacity: 0.9;
-      z-index: 999;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 30px;
+      height: 30px;
+      background: #fff;
+      transform: translate(-50%, -50%) rotate(45deg);
+      animation: pulse 1.5s infinite;
     }
-
     .heart::before, .heart::after {
       content: '';
       position: absolute;
-      background-color: #ff4d88;
+      width: 30px;
+      height: 30px;
+      background: #fff;
       border-radius: 50%;
-      width: 18px;
-      height: 18px;
+    }
+    .heart::before {
+      top: -15px;
+      left: 0;
+    }
+    .heart::after {
+      left: -15px;
+      top: 0;
     }
 
-    .heart::before { top: -9px; left: 0; }
-    .heart::after { top: 0; left: -9px; }
-
-    footer {
-      margin-top: 40px;
-      color: #b37799;
-      font-style: italic;
+    @keyframes pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(45deg); }
+      50% { transform: translate(-50%, -50%) scale(1.2) rotate(45deg); }
     }
 
-    @keyframes floatUp {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-120vh); opacity: 0; }
+    #passwordScreen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    #dateInput {
+      padding: 10px;
+      font-size: 1rem;
+      border: 2px solid #ff4d88;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    #submitBtn {
+      padding: 10px 20px;
+      background: #ff4d88;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #mainContent {
+      display: none;
+      animation: fadeIn 1s ease forwards;
+      padding: 40px 20px;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1.typing {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem;
+      color: #d8006a;
+      margin-bottom: 20px;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid #d8006a;
+      width: 0;
+      animation: typing 3s steps(40, end) forwards, blink 0.7s infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Envelope Section -->
-  <section id="envelopeSection">
-    <div class="envelope" onclick="openEnvelope()"></div>
-    <div id="passwordSection">
-      <label for="passwordInput">Enter your anniversary date</label>
-      <input type="date" id="passwordInput" />
-      <button onclick="checkPassword()">Submit</button>
-    </div>
-  </section>
+<div class="envelope-container" id="envelopeSection">
+  <div class="envelope" onclick="openEnvelope()">
+    <div class="heart"></div>
+  </div>
+  <div id="passwordScreen">
+    <input type="date" id="dateInput">
+    <button id="submitBtn" onclick="checkPassword()">Enter</button>
+  </div>
+</div>
 
-  <!-- Main Content -->
-  <section id="mainContent">
-    <h1>Happy 2nd Anniversary, Mahal ko! 💖</h1>
+<div id="mainContent">
+  <h1 class="typing">Happy 2nd Anniversary, Mahal ko! 💖</h1>
+  <p style="max-width: 500px; margin: auto; font-size: 1.2rem; color: #7a0045;">
+    Mahal, salamat sa dalawang taon ng saya, hirap, at pagmamahal. Ikaw ang aking lakas at inspirasyon. Nawa’y marami pa tayong mga araw na magkasama, puno ng tawanan at pag-ibig. Mahal na mahal kita.
+  </p>
+</div>
 
-    <div class="slideshow-container">
-      <img src="img1.jpg" class="slide active" alt="Us 1">
-      <img src="img2.jpg" class="slide" alt="Us 2">
-      <img src="img3.jpg" class="slide" alt="Us 3">
-    </div>
+<audio id="bgMusic" loop>
+  <source src="Paraiso by Smokey Mountain piano cover  sheet music  lyrics.mp3" type="audio/mpeg">
+</audio>
 
-    <div id="loveContainer">
-      <p>Mahal, salamat sa dalawang taon ng saya, hirap, at pagmamahal. Ikaw ang aking lakas at inspirasyon. Nawa’y marami pa tayong mga araw na magkasama, puno ng tawanan at pag-ibig. Mahal na mahal kita.</p>
-      <p>Happy 2nd Anniversary! 💖</p>
-    </div>
+<script>
+  function openEnvelope() {
+    document.getElementById('passwordScreen').style.display = 'flex';
+  }
 
-    <footer>With all my love &hearts;</footer>
-  </section>
-
-  <!-- Audio -->
-  <audio id="bgMusic" loop>
-    <source src="Paraiso by Smokey Mountain piano cover  sheet music  lyrics.mp3" type="audio/mpeg">
-  </audio>
-
-  <!-- JS Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <script>
-    function openEnvelope() {
-      document.querySelector('.envelope').classList.add('open');
-      setTimeout(() => {
-        document.getElementById('passwordSection').style.display = 'flex';
-      }, 800);
+  function checkPassword() {
+    const input = document.getElementById('dateInput').value;
+    if (input === '2025-07-02') {
+      document.getElementById('envelopeSection').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+      document.getElementById('bgMusic').play();
+    } else {
+      alert('Mali ang petsa, mahal! 😅');
     }
-
-    function checkPassword() {
-      const inputDate = document.getElementById('passwordInput').value;
-      if (inputDate === '2025-07-02') {
-        document.getElementById('envelopeSection').style.display = 'none';
-        document.getElementById('mainContent').style.display = 'block';
-        playHearts();
-        document.getElementById('bgMusic').play().catch(() => {});
-        confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
-        startSlideshow();
-      } else {
-        alert("Mali ang date! Hint: July 2, 2025 💖");
-      }
-    }
-
-    function playHearts() {
-      for (let i = 0; i < 10; i++) {
-        const heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.style.left = (i * 8 + Math.random() * 5) + 'vw';
-        heart.style.animationDuration = (4 + Math.random() * 2) + 's';
-        heart.style.animationDelay = (Math.random() * 3) + 's';
-        document.body.appendChild(heart);
-      }
-    }
-
-    function startSlideshow() {
-      const slides = document.querySelectorAll('.slide');
-      let current = 0;
-      setInterval(() => {
-        slides[current].classList.remove('active');
-        current = (current + 1) % slides.length;
-        slides[current].classList.add('active');
-      }, 4000);
-    }
-  </script>
+  }
+</script>
 </body>
 </html>
