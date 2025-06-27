@@ -1,105 +1,169 @@
-
 <!DOCTYPE html>
 <html lang="tl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Happy 2nd Anniversary!</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand&display=swap" rel="stylesheet"/>
   <style>
     * {
       box-sizing: border-box;
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
     }
     body {
-      background: linear-gradient(135deg, #ffe6f0, #fff0f5, #ffe6e6);
       font-family: 'Quicksand', sans-serif;
-      text-align: center;
+      background: linear-gradient(135deg, #ffe6f0, #fff0f5, #ffe6e6);
       color: #4d0039;
-      min-height: 100vh;
+      text-align: center;
       overflow-x: hidden;
-    }
-    h1 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.2rem;
-      color: #d8006a;
-      margin: 25px 0;
-      text-shadow: 3px 3px 12px #ffb6d7;
-      user-select: none;
+      min-height: 100vh;
     }
 
-    .envelope-wrapper {
-      margin-top: 60px;
+    #envelopeSection {
       display: flex;
+      align-items: center;
       justify-content: center;
+      height: 100vh;
+      background: radial-gradient(#fff0f5, #ffe6f0);
+      flex-direction: column;
+      gap: 20px;
     }
 
     .envelope {
-      width: 220px;
-      height: 140px;
-      background: #ffc0cb;
+      width: 150px;
+      height: 100px;
+      background: #ff80aa;
       position: relative;
-      border: 2px solid #ff7cae;
-      border-radius: 6px;
+      border-radius: 5px;
+      box-shadow: 0 8px 25px rgba(255, 0, 100, 0.3);
       cursor: pointer;
-      box-shadow: 0 6px 15px rgba(255, 105, 180, 0.4);
-      transition: transform 0.3s ease;
+      transition: transform 0.4s ease;
+    }
+
+    .envelope::before, .envelope::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #ff99bb;
+      transition: 0.4s;
     }
 
     .envelope::before {
-      content: '';
-      position: absolute;
-      top: -70px;
-      left: 0;
-      width: 0;
-      height: 0;
-      border-left: 110px solid transparent;
-      border-right: 110px solid transparent;
-      border-bottom: 70px solid #ffc0cb;
-      transition: transform 0.6s ease;
-      transform-origin: bottom;
+      clip-path: polygon(0 0, 100% 0, 50% 50%);
     }
 
-    .envelope.open::before {
-      transform: rotateX(180deg);
+    .envelope::after {
+      clip-path: polygon(0 100%, 100% 100%, 50% 50%);
     }
 
-    .prompt {
-      margin-top: 18px;
-      font-size: 1.1rem;
-      color: #b30059;
+    .envelope.open {
+      transform: scale(1.1) rotateX(180deg);
     }
 
-    .password-form {
+    #passwordSection {
       display: none;
-      margin-top: 20px;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      animation: fadeIn 1s forwards;
     }
 
-    .password-form input {
-      padding: 10px;
-      border: 2px solid #ff99cc;
+    #passwordSection input[type="date"] {
+      padding: 10px 15px;
+      border: 2px solid #ff4d88;
       border-radius: 10px;
       font-size: 1rem;
     }
 
-    .password-form button {
+    #passwordSection button {
       background: #ff4d88;
       color: white;
       padding: 10px 20px;
       border: none;
-      margin-left: 10px;
-      border-radius: 10px;
+      border-radius: 8px;
+      font-size: 1rem;
       cursor: pointer;
-      transition: 0.3s ease;
-    }
-
-    .password-form button:hover {
-      background: #e60073;
+      box-shadow: 0 4px 12px rgba(255, 0, 100, 0.3);
     }
 
     #mainContent {
       display: none;
-      animation: fadeIn 1.5s ease forwards;
+      padding: 20px;
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      color: #d8006a;
+      text-shadow: 2px 2px 8px #ffb6d7;
+    }
+
+    .slideshow-container {
+      max-width: 600px;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(255, 102, 153, 0.4);
+    }
+
+    .slide {
+      width: 100%;
+      display: none;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    #loveContainer {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff0f5;
+      border-radius: 20px;
+      color: #7a0045;
+      box-shadow: 0 8px 18px rgba(230, 0, 115, 0.2);
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -40px;
+      width: 18px;
+      height: 18px;
+      background-color: #ff4d88;
+      border-radius: 10px 10px 0 0;
+      animation: floatUp 5.5s linear infinite;
+      opacity: 0.9;
+      z-index: 999;
+    }
+
+    .heart::before, .heart::after {
+      content: '';
+      position: absolute;
+      background-color: #ff4d88;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+    }
+
+    .heart::before {
+      top: -9px;
+      left: 0;
+    }
+
+    .heart::after {
+      top: 0;
+      left: -9px;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-120vh); opacity: 0; }
     }
 
     @keyframes fadeIn {
@@ -107,169 +171,93 @@
       to { opacity: 1; }
     }
 
-    /* Include your original styles here (slideshow, card, hearts, etc.) */
-    .card {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 20px;
-      padding: 25px 20px;
-      max-width: clamp(320px, 90vw, 600px);
-      margin: 40px auto;
-      box-shadow: 0 12px 40px rgba(255, 102, 153, 0.25);
-      backdrop-filter: blur(8px);
-    }
-
-    .slideshow-container {
-      position: relative;
-      width: 100%;
-      max-width: 600px;
-      aspect-ratio: 600 / 310;
-      margin: 20px auto 30px;
-      border-radius: 16px;
-      overflow: visible;
-      box-shadow: 0 12px 30px rgba(255, 102, 153, 0.35);
-      background: #fff0f5;
-    }
-
-    .slide {
-      position: absolute;
-      top: 50%; left: 50%;
-      width: 100%;
-      height: 100%;
-      max-height: 310px;
-      object-fit: cover;
-      border: 5px solid #ff4d88;
-      border-radius: 16px;
-      opacity: 0;
-      transform: translate(-50%, -50%) scale(0.9);
-      transition: 0.4s ease;
-    }
-
-    .slide.active {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    .nav-buttons {
-      margin-top: 15px;
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-    }
-
-    .nav-buttons button {
-      background: linear-gradient(45deg, #ff4d88, #ff99bb);
-      border: none;
-      color: white;
-      padding: 10px 26px;
-      border-radius: 35px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    #loveContainer {
-      margin-top: 30px;
-      text-align: left;
-      font-size: 1.2rem;
-      padding: 20px;
-      border-radius: 20px;
-      background: #fff0f5;
-      color: #7a0045;
-    }
-
     footer {
-      margin-top: 30px;
+      margin-top: 40px;
       color: #b37799;
+      font-style: italic;
     }
   </style>
 </head>
 <body>
+  <section id="envelopeSection">
+    <div class="envelope" onclick="openEnvelope()"></div>
+    <div id="passwordSection">
+      <label for="passwordInput">Enter your anniversary date</label>
+      <input type="date" id="passwordInput" />
+      <button onclick="checkPassword()">Submit</button>
+    </div>
+  </section>
 
-  <h1>Happy 2nd Anniversary 💖</h1>
+  <section id="mainContent">
+    <h1>Happy 2nd Anniversary, Mahal ko! 💖</h1>
 
-  <div class="envelope-wrapper">
-    <div class="envelope" onclick="openEnvelope(this)"></div>
-  </div>
-  <p class="prompt">Click the envelope to open ✉️</p>
+    <div class="slideshow-container">
+      <img src="img1.jpg" class="slide active" alt="Us 1">
+      <img src="img2.jpg" class="slide" alt="Us 2">
+      <img src="img3.jpg" class="slide" alt="Us 3">
+    </div>
 
-  <div class="password-form" id="passwordForm">
-    <p>Enter your anniversary date to unlock:</p>
-    <input type="date" id="passwordInput" />
-    <button onclick="checkPassword()">Submit</button>
-    <p id="errorMsg" style="color: red;"></p>
-  </div>
-
-  <div id="mainContent">
-    <section class="card">
-      <div class="slideshow-container">
-        <img src="img1.jpg" class="slide active" />
-        <img src="img2.jpg" class="slide" />
-        <img src="img3.jpg" class="slide" />
-      </div>
-
-      <nav class="nav-buttons">
-        <button onclick="prevSlide()">⟨ Previous</button>
-        <button onclick="nextSlide()">Next ⟩</button>
-      </nav>
-
-      <article id="loveContainer">
-        <p>Mahal, salamat sa dalawang taon ng saya, hirap, at pagmamahal. Ikaw ang aking lakas at inspirasyon. Nawa’y marami pa tayong mga araw na magkasama, puno ng tawanan at pag-ibig. Mahal na mahal kita.</p>
-        <p>Happy 2nd Anniversary! 💖</p>
-      </article>
-    </section>
+    <div id="loveContainer">
+      <p>Mahal, salamat sa dalawang taon ng saya, hirap, at pagmamahal. Ikaw ang aking lakas at inspirasyon. Nawa’y marami pa tayong mga araw na magkasama, puno ng tawanan at pag-ibig. Mahal na mahal kita.</p>
+      <p>Happy 2nd Anniversary! 💖</p>
+    </div>
 
     <footer>With all my love &hearts;</footer>
-  </div>
+  </section>
 
-  <audio id="bgMusic" autoplay loop>
-    <source src="Paraiso by Smokey Mountain piano cover  sheet music  lyrics.mp3" type="audio/mpeg" />
+  <audio id="bgMusic" loop>
+    <source src="Paraiso by Smokey Mountain piano cover  sheet music  lyrics.mp3" type="audio/mpeg">
   </audio>
 
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
-    // Envelope animation
-    function openEnvelope(el) {
-      el.classList.add('open');
-      document.querySelector('.prompt').style.display = 'none';
-      document.getElementById('passwordForm').style.display = 'block';
+    function openEnvelope() {
+      const envelope = document.querySelector('.envelope');
+      envelope.classList.add('open');
+      setTimeout(() => {
+        document.getElementById('passwordSection').style.display = 'flex';
+      }, 800);
     }
 
     function checkPassword() {
-      const input = document.getElementById("passwordInput").value;
-      const correct = "2025-07-02";
-      if (input === correct) {
-        document.getElementById("mainContent").style.display = "block";
-        document.getElementById("passwordForm").style.display = "none";
-        confetti({ particleCount: 100, spread: 80 });
-        document.getElementById("bgMusic").play().catch(() => {});
+      const inputDate = document.getElementById('passwordInput').value;
+      if (inputDate === '2025-07-02') {
+        document.getElementById('envelopeSection').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+        playHearts();
+        document.getElementById('bgMusic').play().catch(() => {});
+        confetti({
+          particleCount: 200,
+          spread: 100,
+          origin: { y: 0.6 }
+        });
+        startSlideshow();
       } else {
-        document.getElementById("errorMsg").innerText = "Mali ang petsa. 😢";
+        alert("Mali ang date! Clue: July 2, 2025 💖");
       }
     }
 
-    const slides = document.querySelectorAll(".slide");
-    let currentIndex = 0;
-
-    function showSlide(index) {
-      slides.forEach((s, i) => {
-        s.classList.toggle("active", i === index);
-      });
+    function playHearts() {
+      for (let i = 0; i < 10; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = (i * 8 + Math.random() * 5) + 'vw';
+        heart.style.animationDuration = (4 + Math.random() * 2) + 's';
+        heart.style.animationDelay = (Math.random() * 3) + 's';
+        document.body.appendChild(heart);
+      }
     }
 
-    function nextSlide() {
-      currentIndex = (currentIndex + 1) % slides.length;
-      showSlide(currentIndex);
-    }
+    function startSlideshow() {
+      const slides = document.querySelectorAll('.slide');
+      let current = 0;
 
-    function prevSlide() {
-      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-      showSlide(currentIndex);
+      setInterval(() => {
+        slides[current].classList.remove('active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('active');
+      }, 4000);
     }
-
-    document.body.addEventListener('click', () => {
-      const audio = document.getElementById('bgMusic');
-      audio.play().catch(() => {});
-    }, { once: true });
   </script>
 </body>
 </html>
