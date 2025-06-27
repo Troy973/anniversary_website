@@ -21,65 +21,58 @@
     }
     .envelope-container {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       height: 100vh;
+      flex-direction: column;
+      animation: fadeIn 2s ease-in-out;
     }
     .envelope {
-      width: 180px;
-      height: 120px;
-      background: #ff80aa;
+      width: 120px;
+      height: 80px;
+      background: #ff4d88;
       position: relative;
-      border-radius: 10px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      cursor: pointer;
-      transition: transform 0.3s;
-    }
-    .envelope:hover {
-      transform: scale(1.05);
-    }
-    .envelope::before, .envelope::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 0;
-      border-style: solid;
+      transform: rotate(0deg);
+      box-shadow: 0 8px 25px rgba(255, 77, 136, 0.4);
+      border-radius: 4px;
+      transition: transform 0.5s ease;
     }
     .envelope::before {
-      top: 0;
+      content: '';
+      position: absolute;
+      top: -40px;
       left: 0;
-      border-width: 0 90px 60px 90px;
-      border-color: transparent transparent #ffcce0 transparent;
+      width: 0;
+      height: 0;
+      border-left: 60px solid transparent;
+      border-right: 60px solid transparent;
+      border-bottom: 40px solid #ff4d88;
     }
-    .envelope::after {
-      bottom: 0;
-      left: 0;
-      border-width: 60px 90px 0 90px;
-      border-color: #ff99bb transparent transparent transparent;
-    }
-    #passwordBox {
-      display: none;
-      flex-direction: column;
-      align-items: center;
+    .password-box {
       margin-top: 20px;
     }
-    #passwordBox h2 {
-      margin-bottom: 10px;
-      font-size: 1.1rem;
-    }
-    #passwordInput {
+    .password-box input[type="date"] {
       padding: 10px;
-      font-size: 1rem;
-      border-radius: 10px;
+      border-radius: 8px;
       border: 2px solid #ff4d88;
+      font-size: 1rem;
+      outline: none;
     }
-    #mainContent {
+    .password-box button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #ff4d88;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    #main-content {
       display: none;
       padding: 40px 15px 80px;
     }
-
-    /* ❤️ EXISTING STYLE MO MULA DITO PABABA — WALA AKO GINALAW. */
     h1 {
       font-family: 'Great Vibes', cursive;
       font-size: 2.2rem;
@@ -88,8 +81,13 @@
       text-shadow: 3px 3px 12px #ffb6d7;
       user-select: none;
     }
-    .fade-in { animation: fadeIn 1.5s ease forwards; opacity: 0; }
-    @keyframes fadeIn { to { opacity: 1; } }
+    .fade-in {
+      animation: fadeIn 1.5s ease forwards;
+      opacity: 0;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
     .card {
       background: rgba(255, 255, 255, 0.95);
       border-radius: 20px;
@@ -120,20 +118,26 @@
       border: 5px solid #ff4d88;
       border-radius: 16px;
       opacity: 0;
-      transition: all 0.4s ease;
+      transition: opacity 0.8s ease, transform 0.4s ease, box-shadow 0.4s ease;
       pointer-events: none;
       user-select: none;
       transform: translate(-50%, -50%) scale(0.9);
+      filter: drop-shadow(0 0 8px #ff699c88);
       z-index: 1;
+      background: white;
     }
     .slide.active {
       opacity: 1;
       pointer-events: auto;
       transform: translate(-50%, -50%) scale(1);
+      box-shadow: 0 12px 30px rgba(255, 77, 136, 0.8);
+      filter: drop-shadow(0 0 15px #ff4d88);
       z-index: 5;
     }
     .slide.active:hover {
       transform: translate(-50%, -50%) scale(1.05);
+      box-shadow: 0 16px 40px rgba(255, 77, 136, 1);
+      filter: drop-shadow(0 0 22px #ff3377);
     }
     .nav-buttons {
       margin-top: 15px;
@@ -151,6 +155,14 @@
       font-size: 1.1rem;
       font-weight: 600;
       cursor: pointer;
+      box-shadow: 0 5px 15px rgba(255, 102, 153, 0.45);
+      transition: all 0.35s ease;
+      user-select: none;
+    }
+    .nav-buttons button:hover {
+      background: linear-gradient(45deg, #e60073, #ff4d88);
+      transform: scale(1.08);
+      box-shadow: 0 8px 20px rgba(230, 0, 115, 0.6);
     }
     #loveContainer {
       margin-top: 30px;
@@ -164,6 +176,7 @@
       background: #fff0f5;
       padding: 22px 28px;
       border-radius: 20px;
+      box-shadow: 0 8px 18px rgba(230, 0, 115, 0.2);
     }
     footer {
       margin-top: 50px;
@@ -171,122 +184,61 @@
       color: #b37799;
       font-style: italic;
     }
-    .heart {
-      position: fixed;
-      bottom: -40px;
-      width: 18px;
-      height: 18px;
-      background-color: #ff4d88;
-      border-radius: 10px 10px 0 0;
-      opacity: 0.9;
-      animation: floatUp 5.5s linear infinite;
-      pointer-events: none;
-      z-index: 9999;
-    }
-    .heart::before, .heart::after {
-      content: '';
-      position: absolute;
-      background-color: #ff4d88;
-      border-radius: 50%;
-      width: 18px;
-      height: 18px;
-    }
-    .heart::before { top: -9px; left: 0; }
-    .heart::after { left: -9px; top: 0; }
   </style>
 </head>
 <body>
-
-<!-- 🔒 ENVELOPE & PASSWORD -->
-<div class="envelope-container" id="envelopeScreen">
-  <div class="envelope" onclick="showPasswordBox()"></div>
-  <div id="passwordBox">
-    <h2>Enter your special date 💖</h2>
-    <input type="date" id="passwordInput" />
-  </div>
-</div>
-
-<!-- 🎉 MAIN CONTENT MO -->
-<div id="mainContent">
-  <h1 class="fade-in">Happy 2nd Anniversary, Mahal ko! 💖</h1>
-
-  <section class="card fade-in">
-    <div class="slideshow-container">
-      <img src="482057080_987998880095637_8400752815292307246_n.jpg" class="slide active" />
-      <img src="484052271_988004476761744_3876532500821763193_n.jpg" class="slide" />
-      <img src="484121400_988004456761746_1054291985449744107_n.jpg" class="slide" />
-      <img src="484052271_988004476761744_3876532500821763193_n.jpg" class="slide" />
+  <div class="envelope-container" id="lockScreen">
+    <div class="envelope"></div>
+    <div class="password-box">
+      <label for="anniv">Enter your password (Anniversary Date):</label><br>
+      <input type="date" id="anniv" />
+      <br><button onclick="checkDate()">Open</button>
     </div>
+  </div>
 
-    <nav class="nav-buttons">
-      <button onclick="prevSlide()">⟨ Previous</button>
-      <button onclick="nextSlide()">Next ⟩</button>
-    </nav>
+  <div id="main-content">
+    <h1 class="fade-in">Happy 2nd Anniversary, Mahal ko! 💖</h1>
+    <section class="card fade-in">
+      <div class="slideshow-container">
+        <img src="482057080_987998880095637_8400752815292307246_n.jpg" class="slide active" />
+        <img src="484052271_988004476761744_3876532500821763193_n.jpg" class="slide" />
+      </div>
+      <nav class="nav-buttons">
+        <button onclick="prevSlide()">⟨ Previous</button>
+        <button onclick="nextSlide()">Next ⟩</button>
+      </nav>
+      <article id="loveContainer">
+        <p>Mahal, salamat sa dalawang taon ng saya, hirap, at pagmamahal. Ikaw ang aking lakas at inspirasyon. Nawa’y marami pa tayong mga araw na magkasama, puno ng tawanan at pag-ibig. Mahal na mahal kita.</p>
+        <p>Happy 2nd Anniversary! 💖</p>
+      </article>
+    </section>
+    <footer>With all my love &hearts;</footer>
+  </div>
 
-    <article id="loveContainer">
-      <p>Mahal, salamat sa dalawang taon ng saya, hirap, at pagmamahal. Ikaw ang aking lakas at inspirasyon. Nawa’y marami pa tayong mga araw na magkasama, puno ng tawanan at pag-ibig. Mahal na mahal kita.</p>
-      <p>Happy 2nd Anniversary! 💖</p>
-    </article>
-  </section>
-
-  <footer>With all my love &hearts;</footer>
-
-  <audio id="bgMusic" autoplay loop>
-    <source src="Paraiso by Smokey Mountain piano cover  sheet music  lyrics.mp3" type="audio/mpeg" />
-  </audio>
-</div>
-
-<script>
-  const slides = document.querySelectorAll('.slide');
-  let currentIndex = 0;
-
-  function showSlide(index) {
-    slides.forEach((slide, i) => {
-      slide.classList.toggle('active', i === index);
-    });
-  }
-
-  function nextSlide() {
-    currentIndex = (currentIndex + 1) % slides.length;
-    showSlide(currentIndex);
-  }
-
-  function prevSlide() {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    showSlide(currentIndex);
-  }
-
-  function showPasswordBox() {
-    document.getElementById("passwordBox").style.display = "flex";
-  }
-
-  document.getElementById("passwordInput").addEventListener("change", function () {
-    const inputDate = this.value;
-    if (inputDate === "2025-07-02") {
-      document.getElementById("envelopeScreen").style.display = "none";
-      document.getElementById("mainContent").style.display = "block";
-      for (let i = 0; i < 5; i++) {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.style.left = (i * 4 + Math.random() * 3) + "vw";
-        document.body.appendChild(heart);
-      }
-      document.getElementById("bgMusic").play().catch(() => {});
-    } else {
-      alert("Maling petsa 😢. Try again.");
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let currentIndex = 0;
+    function showSlide(index) {
+      slides.forEach((s, i) => s.classList.toggle('active', i === index));
     }
-  });
-
-  // Confetti
-  window.addEventListener("load", () => {
-    confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
-  });
-
-  window.addEventListener("click", function enableAudio() {
-    const audio = document.getElementById("bgMusic");
-    audio.play().catch(() => {});
-    window.removeEventListener("click", enableAudio);
-  });
-</script>
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % slides.length;
+      showSlide(currentIndex);
+    }
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      showSlide(currentIndex);
+    }
+    function checkDate() {
+      const inputDate = document.getElementById('anniv').value;
+      const correctDate = '2025-07-02';
+      if (inputDate === correctDate) {
+        document.getElementById('lockScreen').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+      } else {
+        alert("Mali ang petsa 😢. Try ulit.");
+      }
+    }
+  </script>
 </body>
 </html>
