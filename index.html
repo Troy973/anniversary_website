@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Happy 2nd Anniversary!</title>
+  <title>Surprise!</title>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand&display=swap" rel="stylesheet" />
   <style>
     * {
@@ -14,110 +14,252 @@
     body {
       font-family: 'Quicksand', sans-serif;
       background: linear-gradient(135deg, #ffe6f0 0%, #fff0f5 50%, #ffe6e6 100%);
-      padding: 20px;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-attachment: fixed;
       text-align: center;
       color: #4d0039;
     }
-    .envelope {
+    .envelope-container {
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       height: 100vh;
     }
-    .envelope-box {
-      background: #fff0f5;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 8px 30px rgba(255, 102, 153, 0.3);
-      max-width: 350px;
-      width: 100%;
+    .envelope {
+      width: 200px;
+      height: 150px;
+      background: #ff80aa;
+      position: relative;
+      cursor: pointer;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     }
-    .envelope-box h2 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2rem;
-      margin-bottom: 20px;
-      color: #d8006a;
+    .envelope::before, .envelope::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-style: solid;
     }
-    .envelope-box input[type="date"] {
+    .envelope::before {
+      top: 0;
+      left: 0;
+      border-width: 0 100px 75px 100px;
+      border-color: transparent transparent #ffb6c1 transparent;
+    }
+    .envelope::after {
+      bottom: 0;
+      left: 0;
+      border-width: 75px 100px 0 100px;
+      border-color: #ff99bb transparent transparent transparent;
+    }
+    #dateInputBox {
+      display: none;
+      margin-top: 20px;
+    }
+    #dateInput {
       padding: 10px;
       font-size: 1rem;
-      border: 2px solid #ff4d88;
       border-radius: 10px;
-      outline: none;
-      width: 100%;
-      margin-bottom: 15px;
+      border: 2px solid #ff4d88;
     }
-    .envelope-box button {
+    #anniversaryPage {
+      display: none;
+      padding: 40px 15px 80px;
+    }
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem;
+      margin-bottom: 25px;
+      color: #d8006a;
+      text-shadow: 3px 3px 12px #ffb6d7;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 25px 20px;
+      max-width: clamp(320px, 90vw, 600px);
+      margin: 0 auto 40px;
+      box-shadow: 0 12px 40px rgba(255, 102, 153, 0.25);
+    }
+    .slideshow-container {
+      position: relative;
+      max-width: 600px;
+      aspect-ratio: 600 / 310;
+      margin: 20px auto 30px;
+      border-radius: 16px;
+      overflow: visible;
+      background: #fff0f5;
+    }
+    .slide {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 100%;
+      height: 100%;
+      max-height: 310px;
+      object-fit: cover;
+      border: 5px solid #ff4d88;
+      border-radius: 16px;
+      opacity: 0;
+      transition: all 0.5s ease;
+      pointer-events: none;
+      user-select: none;
+      transform: translate(-50%, -50%) scale(0.9);
+    }
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, -50%) scale(1);
+      z-index: 5;
+    }
+    .nav-buttons {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .nav-buttons button {
       background: linear-gradient(45deg, #ff4d88, #ff99bb);
       border: none;
       color: white;
-      padding: 10px 20px;
-      border-radius: 25px;
-      font-size: 1rem;
+      padding: 10px 26px;
+      border-radius: 35px;
+      font-size: 1.1rem;
+      font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 5px 15px rgba(255, 102, 153, 0.4);
     }
-    #mainContent {
-      display: none;
-    }
-
-    /* Main content styles */
-    h1 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.6rem;
-      margin-bottom: 20px;
-      color: #d8006a;
-    }
-    .card {
-      background: white;
-      border-radius: 20px;
-      padding: 20px;
+    #loveContainer {
+      font-size: 1.25rem;
       max-width: 600px;
-      margin: 20px auto;
-      box-shadow: 0 12px 40px rgba(255, 102, 153, 0.25);
+      margin: 0 auto;
+      background: #fff0f5;
+      padding: 22px 28px;
+      border-radius: 20px;
+      color: #7a0045;
     }
     footer {
-      margin-top: 30px;
+      margin-top: 50px;
+      font-size: 1rem;
       color: #b37799;
       font-style: italic;
+    }
+    .heart {
+      position: fixed;
+      bottom: -40px;
+      width: 18px;
+      height: 18px;
+      background-color: #ff4d88;
+      border-radius: 10px 10px 0 0;
+      opacity: 0.9;
+      animation: floatUp 6s linear infinite;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    .heart::before, .heart::after {
+      content: '';
+      position: absolute;
+      background-color: #ff4d88;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+    }
+    .heart::before {
+      top: -9px;
+      left: 0;
+    }
+    .heart::after {
+      left: -9px;
+      top: 0;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-110vh); opacity: 0; }
+    }
+    @media (max-width: 320px) {
+      h1 { font-size: 2rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Envelope section -->
-  <div class="envelope" id="envelopeLogin">
-    <div class="envelope-box">
-      <h2>📩 Enter your password</h2>
-      <input type="date" id="annivDate" />
-      <button onclick="checkPassword()">Open</button>
-    </div>
-  </div>
+<!-- Envelope Screen -->
+<div class="envelope-container" id="envelopePage">
+  <div class="envelope" onclick="showPasswordInput()"></div>
+</div>
 
-  <!-- Hidden main content -->
-  <div id="mainContent">
-    <h1>Happy 2nd Anniversary, Mahal ko! 💖</h1>
-    <div class="card">
-      <p>Mahal, salamat sa dalawang taon ng saya, hirap, at pagmamahal.  
-      Ikaw ang aking lakas at inspirasyon.  
-      Nawa’y marami pa tayong araw na magkasama, puno ng tawanan at pag-ibig.  
-      Mahal na mahal kita. 💕</p>
-    </div>
-    <footer>With all my love &hearts;</footer>
-  </div>
+<div id="dateInputBox">
+  <h2>Enter the date of our Anniversary 💌</h2>
+  <input type="date" id="dateInput" />
+</div>
 
-  <script>
-    function checkPassword() {
-      const inputDate = document.getElementById("annivDate").value;
-      if (inputDate === "2025-07-02") {
-        document.getElementById("envelopeLogin").style.display = "none";
-        document.getElementById("mainContent").style.display = "block";
-      } else {
-        alert("Wrong password! Hint: Anniversary date.");
+<!-- Main Anniversary Page -->
+<div id="anniversaryPage">
+  <h1>Happy 2nd Anniversary, Mahal ko! 💖</h1>
+
+  <section class="card">
+    <div class="slideshow-container">
+      <img src="482057080_987998880095637_8400752815292307246_n.jpg" class="slide active" />
+      <img src="484052271_988004476761744_3876532500821763193_n.jpg" class="slide" />
+    </div>
+    <div class="nav-buttons">
+      <button onclick="prevSlide()">⟨ Previous</button>
+      <button onclick="nextSlide()">Next ⟩</button>
+    </div>
+
+    <article id="loveContainer">
+      <p>Mahal, salamat sa dalawang taon ng saya, hirap, at pagmamahal. Ikaw ang aking lakas at inspirasyon. Nawa’y marami pa tayong mga araw na magkasama, puno ng tawanan at pag-ibig. Mahal na mahal kita.</p>
+      <p>Happy 2nd Anniversary! 💖</p>
+    </article>
+  </section>
+
+  <footer>With all my love &hearts;</footer>
+  <audio id="bgMusic" autoplay loop>
+    <source src="Paraiso by Smokey Mountain piano cover  sheet music  lyrics.mp3" type="audio/mpeg" />
+  </audio>
+</div>
+
+<script>
+  const correctDate = "2025-07-02";
+  function showPasswordInput() {
+    document.getElementById('envelopePage').style.display = 'none';
+    document.getElementById('dateInputBox').style.display = 'block';
+  }
+
+  document.getElementById('dateInput').addEventListener('change', () => {
+    const inputDate = document.getElementById('dateInput').value;
+    if (inputDate === correctDate) {
+      document.getElementById('dateInputBox').style.display = 'none';
+      document.getElementById('anniversaryPage').style.display = 'block';
+      for (let i = 0; i < 10; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = (i * 8 + Math.random() * 4) + 'vw';
+        document.body.appendChild(heart);
       }
+      document.getElementById('bgMusic').play().catch(() => {});
+    } else {
+      alert("Mali! 💔 Hint: petsa ng anniversary natin.");
     }
-  </script>
+  });
+
+  const slides = document.querySelectorAll('.slide');
+  let currentIndex = 0;
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+    });
+  }
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % slides.length;
+    showSlide(currentIndex);
+  }
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    showSlide(currentIndex);
+  }
+</script>
 
 </body>
 </html>
