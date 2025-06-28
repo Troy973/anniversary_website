@@ -314,19 +314,19 @@ setTimeout(() => {
   const main = document.getElementById("main-content");  
   main.style.display = "block";  
 
-  // 🎊 Confetti sabay sa paglabas ng content  
-  confetti({  
-    particleCount: 120,  
-    spread: 70,  
-    origin: { y: 0.6 }  
-  });  
-
   // ⌨️ Typing effect  
   typeAnniversaryMessage("Happy 2nd Anniversary, Mahal ko! 💖", "typingText");  
 
   // 🎶 Music  
   document.getElementById("bgMusic").play().catch(() => {});  
 }, 800); // delay to match the transition animation
+
+    // 🎊 Confetti sabay sa paglabas ng content
+confetti({
+  particleCount: 120,
+  spread: 70,
+  origin: { y: 0.6 }
+});
 
 } else {
 alert("Mali ang password Mahal ko!🎁");
