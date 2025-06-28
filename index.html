@@ -397,6 +397,21 @@ function typeAnniversaryMessage(text, elementId, speed = 80) {
 
   type();
      }
+     function launchHearts() {
+  const count = 20;
+  for (let i = 0; i < count; i++) {
+    const heart = document.createElement("div");
+    heart.className = "floating-heart";
+    heart.innerText = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 5000);
+  }
+     }
 
 </script>  </body>
 
