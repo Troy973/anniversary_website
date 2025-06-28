@@ -106,21 +106,35 @@ h1 {
 
 .nav-buttons button {
   background: linear-gradient(45deg, #ff4d88, #ff99bb);
-  padding: 10px 24px;
-  font-size: 1.1rem;
-  transition: transform 0.3s ease;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
   border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(255, 77, 136, 0.2);
+  animation: pulseBtn 2s infinite ease-in-out;
 }
 
 .nav-buttons button:hover {
-  transform: scale(1.15);
-
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(255, 77, 136, 0.4);
 }
 
-.nav-buttons button:hover {
-  transform: scale(1.15);
-
-}  
+@keyframes pulseBtn {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(255, 77, 136, 0.2);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 0 14px rgba(255, 77, 136, 0.3);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(255, 77, 136, 0.2);
+  }
 
 #loveContainer {  
   font-size: 1.2rem;  
