@@ -381,21 +381,22 @@ function resetInterval() {
 
   
 function typeAnniversaryMessage(text, elementId, speed = 80) {
+  const el = document.getElementById(elementId);
+  let index = 0;
+  el.innerHTML = "";
 
-const el = document.getElementById(elementId);
-let index = 0;
-el.innerHTML = "";
+  function type() {
+    if (index < text.length) {
+      el.innerHTML += text.charAt(index);
+      index++;
+      setTimeout(type, speed);
+    } else {
+      launchHearts(); // 💖 After typing, start floating hearts
+    }
+  }
 
-function type() {
-if (index < text.length) {
-el.innerHTML += text.charAt(index);
-index++;
-setTimeout(type, speed);
-}
-}
-
-type();
-}
+  type();
+     }
 
 </script>  </body>
 
