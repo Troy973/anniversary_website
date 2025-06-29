@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+ <!DOCTYPE html>
 <html lang="tl">
 <head>
   <meta charset="UTF-8" />
@@ -101,21 +102,25 @@
       margin-top: 15px;
     }
 
-    button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      font-size: 1rem;
-      background-color: #ff4d88;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
+     button {
+  margin-top: 15px;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  background: linear-gradient(45deg, #ff4d88, #ff99bb);
+  color: white;
+  border: none;
+  border-radius: 35px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(255, 102, 153, 0.45);
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
 
-    button:hover {
-      transform: scale(1.1);
-    }
+button:hover {
+  transform: scale(1.08);
+  background: linear-gradient(45deg, #e60073, #ff4d88);
+}
+
 
     #main-content {
       display: none;
@@ -130,13 +135,14 @@
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 20px;
-      padding: 25px 20px;
-      max-width: 500px;
-      margin: 0 auto 40px;
-      box-shadow: 0 12px 30px rgba(255, 102, 153, 0.25);
-    }
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 25px 20px;
+  max-width: 500px;
+  margin: 0 auto 40px;
+  box-shadow: 0 15px 40px rgba(255, 102, 153, 0.35);
+  backdrop-filter: blur(8px);
+}
 
     .slideshow-container {
       position: relative;
@@ -177,13 +183,14 @@
     }
 
     #loveContainer {
-      font-size: 1.2rem;
-      max-width: 500px;
-      margin: 20px auto;
-      background: #fff0f5;
-      padding: 20px;
-      border-radius: 16px;
-    }
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: #7a0045;
+  background: #fff0f5;
+  padding: 22px 28px;
+  border-radius: 20px;
+  box-shadow: 0 8px 18px rgba(230, 0, 115, 0.2);
+}
 
     footer {
       margin-top: 40px;
@@ -282,24 +289,19 @@
 
       if (inputDate === correctDate) {
         document.getElementById("password-screen").classList.remove("visible");
+document.getElementById("password-screen").style.display = "none";
+const main = document.getElementById("main-content");
+main.style.display = "block";
 
-        setTimeout(() => {
-          document.getElementById("password-screen").style.display = "none";
-          const main = document.getElementById("main-content");
-          main.style.display = "block";
+// Typing
+typeAnniversaryMessage("Happy 2nd Anniversary, Mahal ko! 💖", "typingText");
 
-          // Typing
-          typeAnniversaryMessage("Happy 2nd Anniversary, Mahal ko! 💖", "typingText");
+// Confetti then hearts agad
+confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
+startFloatingHearts();
 
-          // Confetti then hearts
-          confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-
-          setTimeout(() => {
-            startFloatingHearts();
-          }, 1500);
-
-          document.getElementById("bgMusic").play().catch(() => {});
-        }, 800);
+document.getElementById("bgMusic").play().catch(() => {});
+        
       } else {
         alert("Mali ang password mo Mahal ko! 🎁");
       }
@@ -348,17 +350,35 @@
       slideInterval = setInterval(nextSlide, 5000);
     }
 
-    function startFloatingHearts() {
-      for (let i = 0; i < 15; i++) {
-        setTimeout(() => {
-          const heart = document.createElement("div");
-          heart.classList.add("heart-float");
-          heart.style.left = Math.random() * 100 + "vw";
-          document.body.appendChild(heart);
-          setTimeout(() => heart.remove(), 8000);
-        }, i * 300);
-      }
-    }
+   function startFloatingHearts() {
+  for (let i = 0; i < 25; i++) {
+    const heart = document.createElement('div');
+    heart.classList.add('heart-float');
+
+    // Random position (hindi sabay-sabay)
+    heart.style.left = (i * 4 + Math.random() * 4) + 'vw';
+
+    // Random size
+    const size = 15 + Math.random() * 6;
+    heart.style.width = size + 'px';
+    heart.style.height = size + 'px';
+
+    // Random duration and delay
+    heart.style.animationDuration = (4 + Math.random() * 2) + 's';
+    heart.style.animationDelay = (Math.random() * 6) + 's';
+
+    document.body.appendChild(heart);
+
+    // Remove heart after animation ends
+    setTimeout(() => heart.remove(), 10000);
+  }
+}
+
+window.addEventListener('click', function enableAudio() {
+  const audio = document.getElementById('bgMusic');
+  audio.play().catch(() => {});
+  window.removeEventListener('click', enableAudio);
+});
   </script>
 </body>
 </html>
