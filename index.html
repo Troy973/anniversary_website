@@ -4,32 +4,76 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Anniversary Surprise 💖</title>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
       background: linear-gradient(135deg, #ffe6f0, #fff0f5, #ffe6e6);
       font-family: 'Quicksand', sans-serif;
       color: #4d0039;
       text-align: center;
-      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    #envelope-container,
-    #password-screen {
+    #envelope-container, #password-screen {
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      padding: 20px;
-      text-align: center;
+      flex-direction: column;
+    }
+
+    #envelope {
+      width: 180px;
+      height: 120px;
+      position: relative;
+      perspective: 800px;
+      animation: pulse 1.5s infinite alternate;
+      cursor: pointer;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 8px #ff4d88aa; }
+      100% { transform: scale(1.05); box-shadow: 0 0 16px #ff4d88ee; }
+    }
+
+    .flap {
+      width: 100%;
+      height: 60px;
+      background-color: #ff4d88;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top;
+      transition: transform 0.8s ease;
+      position: absolute;
+      top: 0;
+    }
+
+    .body {
+      width: 100%;
+      height: 60px;
+      background-color: #ff99bb;
+      position: absolute;
+      bottom: 0;
+      border-radius: 0 0 10px 10px;
+    }
+
+    #envelope.open .flap {
+      transform: rotateX(-180deg);
+    }
+
+    .heart {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      color: white;
     }
 
     #password-screen {
@@ -41,91 +85,12 @@
     #password-screen.visible {
       display: flex;
       opacity: 1;
-      animation: fadeIn 0.8s ease forwards;
+      animation: slideUpFade 0.8s ease forwards;
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    #envelope {
-      width: 180px;
-      height: 120px;
-      position: relative;
-      perspective: 800px;
-      animation: pulse 1.5s infinite alternate;
-    }
-
-    #envelope .flap {
-      width: 100%;
-      height: 60px;
-      background-color: #ff4d88;
-      clip-path: polygon(0 0, 100% 0, 50% 100%);
-      transform-origin: top;
-      transition: transform 0.8s ease;
-      position: absolute;
-      top: 0;
-    }
-
-    #envelope .body {
-      width: 100%;
-      height: 60px;
-      background-color: #ff99bb;
-      position: absolute;
-      bottom: 0;
-      border-radius: 0 0 10px 10px;
-    }
-
-    #envelope .heart {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 2rem;
-      color: white;
-    }
-
-    #envelope.open .flap {
-      transform: rotateX(-180deg);
-    }
-
-    #main-content {
-      display: none;
-      padding: 30px 15px;
-    }
-
-    h1 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.4rem;
-      color: #d8006a;
-      margin-bottom: 25px;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 20px;
-      padding: 25px;
-      max-width: 500px;
-      margin: 0 auto;
-      box-shadow: 0 12px 30px rgba(255, 102, 153, 0.25);
-    }
-
-    #loveContainer {
-      font-size: 1.2rem;
-      margin-top: 20px;
-    }
-
-    footer {
-      margin-top: 40px;
-      color: #b37799;
-      font-style: italic;
+    @keyframes slideUpFade {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     input[type="date"] {
@@ -145,19 +110,98 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
+      transition: transform 0.3s ease;
     }
 
-    /* Floating Heart */
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    #main-content {
+      display: none;
+      padding: 40px 15px;
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem;
+      color: #d8006a;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 25px 20px;
+      max-width: 500px;
+      margin: 0 auto 40px;
+      box-shadow: 0 12px 30px rgba(255, 102, 153, 0.25);
+    }
+
+    .slideshow-container {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      aspect-ratio: 600 / 310;
+      margin: 20px auto;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fff0f5;
+    }
+
+    .slide {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border: 5px solid #ff4d88;
+      border-radius: 16px;
+      opacity: 0;
+      transition: 0.5s ease;
+      transform: translate(-50%, -50%) scale(0.9);
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+      z-index: 5;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    #loveContainer {
+      font-size: 1.2rem;
+      max-width: 500px;
+      margin: 20px auto;
+      background: #fff0f5;
+      padding: 20px;
+      border-radius: 16px;
+    }
+
+    footer {
+      margin-top: 40px;
+      color: #b37799;
+      font-style: italic;
+    }
+
     .heart-float {
       position: fixed;
       bottom: -30px;
-      width: 12px;
-      height: 12px;
+      width: 16px;
+      height: 16px;
       background-color: #ff4d88;
       border-radius: 10px 10px 0 0;
-      animation: floatUp 6s linear infinite;
-      z-index: 9999;
       opacity: 0.8;
+      pointer-events: none;
+      animation: floatUp 7s linear forwards;
+      z-index: 9999;
     }
 
     .heart-float::before,
@@ -166,45 +210,22 @@
       position: absolute;
       background-color: #ff4d88;
       border-radius: 50%;
-      width: 12px;
-      height: 12px;
+      width: 16px;
+      height: 16px;
     }
 
-    .heart-float::before {
-      top: -6px;
-      left: 0;
-    }
-
-    .heart-float::after {
-      left: -6px;
-      top: 0;
-    }
+    .heart-float::before { top: -8px; left: 0; }
+    .heart-float::after { left: -8px; top: 0; }
 
     @keyframes floatUp {
-      0% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-110vh);
-        opacity: 0;
-      }
-    }
-
-    @keyframes pulse {
-      0% {
-        transform: scale(1) rotate(0deg);
-        box-shadow: 0 0 8px #ff4d88aa;
-      }
-      100% {
-        transform: scale(1.05) rotate(1deg);
-        box-shadow: 0 0 16px #ff4d88ee;
-      }
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-110vh); opacity: 0; }
     }
   </style>
 </head>
 <body>
-  <!-- Envelope Section -->
+
+  <!-- Envelope -->
   <div id="envelope-container" onclick="openEnvelope()">
     <div id="envelope">
       <div class="flap"></div>
@@ -213,28 +234,38 @@
     </div>
   </div>
 
-  <!-- Password Input -->
+  <!-- Password screen -->
   <div id="password-screen">
     <h1>Enter your password 💌</h1>
     <input type="date" id="passwordInput" />
     <button onclick="checkPassword()">Enter</button>
   </div>
 
-  <!-- Main Content -->
+  <!-- Main content -->
   <div id="main-content">
     <h1><span id="typingText"></span></h1>
     <section class="card">
+      <div class="slideshow-container">
+        <img src="photo1.jpg" class="slide active" />
+        <img src="photo2.jpg" class="slide" />
+      </div>
+      <div class="nav-buttons">
+        <button onclick="prevSlide()">⟨ Prev</button>
+        <button onclick="nextSlide()">Next ⟩</button>
+      </div>
       <div id="loveContainer">
-        Ako'y sobrang nagpapasalamat sa iyo, mahal ko.  
-        Salamat sa dalawang taon ng pagmamahalan. 💖  
+        Mahal, salamat sa dalawang taon ng saya, hirap, at pagmamahal.  
+        Ikaw ang aking lakas at inspirasyon. Nawa’y marami pa tayong araw na magkasama.  
+        Mahal na mahal kita. 💕
       </div>
     </section>
     <footer>With all my love &hearts;</footer>
     <audio id="bgMusic" autoplay loop>
-      <source src="Paraiso by Smokey Mountain piano cover  sheet music  lyrics.mp3" type="audio/mpeg" />
+      <source src="music.mp3" type="audio/mpeg" />
     </audio>
   </div>
 
+  <!-- JS -->
   <script>
     function openEnvelope() {
       document.getElementById("envelope").classList.add("open");
@@ -247,49 +278,85 @@
     function checkPassword() {
       const inputDate = document.getElementById("passwordInput").value;
       const correctDate = "2025-07-02";
+
       if (inputDate === correctDate) {
-        document.getElementById("password-screen").style.display = "none";
-        document.getElementById("main-content").style.display = "block";
+        document.getElementById("password-screen").classList.remove("visible");
 
-        // Play music
-        document.getElementById("bgMusic").play().catch(() => {});
+        setTimeout(() => {
+          document.getElementById("password-screen").style.display = "none";
+          const main = document.getElementById("main-content");
+          main.style.display = "block";
 
-        // Typewriter effect
-        typeText("Happy 2nd Anniversary, Mahal ko! 💖", "typingText");
+          // Typing
+          typeAnniversaryMessage("Happy 2nd Anniversary, Mahal ko! 💖", "typingText");
 
-        // Confetti
-        confetti({
-          particleCount: 100,
-          spread: 60,
-          origin: { y: 0.6 }
-        });
+          // Confetti then hearts
+          confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
 
-        // Floating hearts
-        for (let i = 0; i < 15; i++) {
-          const heart = document.createElement('div');
-          heart.className = 'heart-float';
-          heart.style.left = (Math.random() * 100) + 'vw';
-          heart.style.animationDuration = (4 + Math.random() * 2) + 's';
-          document.body.appendChild(heart);
-        }
+          setTimeout(() => {
+            startFloatingHearts();
+          }, 1500);
 
+          document.getElementById("bgMusic").play().catch(() => {});
+        }, 800);
       } else {
         alert("Mali ang password mo Mahal ko! 🎁");
       }
     }
 
-    function typeText(text, elementId) {
+    function typeAnniversaryMessage(text, elementId, speed = 75) {
       const el = document.getElementById(elementId);
       let index = 0;
       el.innerHTML = "";
+
       function type() {
         if (index < text.length) {
           el.innerHTML += text.charAt(index);
           index++;
-          setTimeout(type, 80);
+          setTimeout(type, speed);
         }
       }
+
       type();
+    }
+
+    const slides = document.querySelectorAll('.slide');
+    let currentIndex = 0;
+    let slideInterval = setInterval(nextSlide, 5000);
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % slides.length;
+      showSlide(currentIndex);
+      resetInterval();
+    }
+
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      showSlide(currentIndex);
+      resetInterval();
+    }
+
+    function resetInterval() {
+      clearInterval(slideInterval);
+      slideInterval = setInterval(nextSlide, 5000);
+    }
+
+    function startFloatingHearts() {
+      for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+          const heart = document.createElement("div");
+          heart.classList.add("heart-float");
+          heart.style.left = Math.random() * 100 + "vw";
+          document.body.appendChild(heart);
+          setTimeout(() => heart.remove(), 8000);
+        }, i * 300);
+      }
     }
   </script>
 </body>
