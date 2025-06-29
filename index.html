@@ -1,418 +1,296 @@
-<DOCTYPE html> 
-<html lang="tl">   
+<!DOCTYPE html>
+<html lang="tl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>    <title>Anniversary Surprise 💖</title>      
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand&display=swap" rel="stylesheet" />      <style>      
-    * {      
-      box-sizing: border-box;      
-      margin: 0;      
-      padding: 0;      
-    }      
-    body {      
-      background: linear-gradient(135deg, #ffe6f0, #fff0f5, #ffe6e6);      
-      font-family: 'Quicksand', sans-serif;      
-      color: #4d0039;      
-      text-align: center;      
-      padding: 40px 15px;      
-      min-height: 100vh;      
-    }  #password-screen {      
-  display: flex;      
-  flex-direction: column;      
-  align-items: center;      
-  justify-content: center;      
-  min-height: 100vh;      
-}      #main-content {
-display: none;
-}
-
-input[type="date"] {
-padding: 10px;
-font-size: 1rem;
-border-radius: 8px;
-border: 1px solid #ff4d88;
-margin-top: 20px;
-}
-
-button {
-margin-top: 15px;
-padding: 10px 20px;
-font-size: 1rem;
-background-color: #ff4d88;
-color: white;
-border: none;
-border-radius: 8px;
-cursor: pointer;
-}
-
-h1 {
-font-family: 'Great Vibes', cursive;
-font-size: 2.3rem;
-color: #d8006a;
-margin-bottom: 25px;
-}
-
-.card {
-background: rgba(255, 255, 255, 0.95);
-border-radius: 20px;
-padding: 25px 20px;
-max-width: 500px;
-margin: 0 auto 40px;
-box-shadow: 0 12px 30px rgba(255, 102, 153, 0.25);
-}
-
-.slideshow-container {
-position: relative;
-width: 100%;
-max-width: 500px;
-aspect-ratio: 600 / 310;
-margin: 20px auto 30px;
-border-radius: 16px;
-overflow: hidden;
-background: #fff0f5;
-}
-
-.slide {
-position: absolute;
-top: 50%;
-left: 50%;
-width: 100%;
-height: 100%;
-object-fit: cover;
-border: 5px solid #ff4d88;
-border-radius: 16px;
-opacity: 0;
-transition: 0.5s ease;
-transform: translate(-50%, -50%) scale(0.9);
-}
-
-.slide.active {
-opacity: 1;
-transform: translate(-50%, -50%) scale(1);
-z-index: 5;
-}
-
-.nav-buttons {
-display: flex;
-justify-content: center;
-gap: 10px;
-margin-bottom: 20px;
-}
-
-.nav-buttons button {
-background: linear-gradient(45deg, #ff4d88, #ff99bb);
-padding: 10px 24px;
-font-size: 1.1rem;
-transition: transform 0.3s ease;
-border-radius: 10px;
-}
-
-.nav-buttons button:hover {
-transform: scale(1.15);
-
-}
-
-.nav-buttons button:hover {
-transform: scale(1.15);
-
-}
-
-#loveContainer {
-font-size: 1.2rem;
-max-width: 500px;
-margin: 20px auto;
-background: #fff0f5;
-padding: 20px;
-border-radius: 16px;
-}
-
-footer {
-margin-top: 40px;
-color: #b37799;
-font-style: italic;
-}
-
-.heart {
-position: fixed;
-bottom: -40px;
-width: 18px;
-height: 18px;
-background-color: #ff4d88;
-border-radius: 10px 10px 0 0;
-opacity: 0.9;
-animation: floatUp 5.5s linear infinite;
-pointer-events: none;
-z-index: 9999;
-}
-
-.heart::before,
-.heart::after {
-content: '';
-position: absolute;
-background-color: #ff4d88;
-border-radius: 50%;
-width: 18px;
-height: 18px;
-}
-
-.heart::before {
-top: -9px;
-left: 0;
-}
-
-.heart::after {
-left: -9px;
-top: 0;
-}
-
-@keyframes floatUp {
-0% {
-transform: translateY(0);
-opacity: 1;
-}
-100% {
-transform: translateY(-110vh);
-opacity: 0;
-}
-}
-#envelope-container {
-
-display: flex;
-justify-content: center;
-align-items: center;
-min-height: 100vh;
-cursor: pointer;
-}
-
-#envelope {
-width: 180px;
-height: 120px;
-position: relative;
-perspective: 800px;
-}
-
-#envelope .flap {
-width: 100%;
-height: 60px;
-background-color: #ff4d88;
-clip-path: polygon(0 0, 100% 0, 50% 100%);
-transform-origin: top;
-transition: transform 0.8s ease;
-position: absolute;
-top: 0;
-}
-
-#envelope .body {
-width: 100%;
-height: 60px;
-background-color: #ff99bb;
-position: absolute;
-bottom: 0;
-border-radius: 0 0 10px 10px;
-}
-
-#envelope .heart {
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-font-size: 2rem;
-color: white;
-}
-
-#envelope.open .flap {
-transform: rotateX(-180deg);
-}
-
-/* Transitions for password screen */
-#password-screen {
-display: none;
-opacity: 0;
-transition: opacity 1s ease;
-}
-
-#password-screen.visible {
-display: flex;
-opacity: 1;
-}
-/* ✨ Envelope Animation Effect */
-#envelope {
-animation: pulse 1.5s infinite alternate;
-}
-
-@keyframes pulse {
-0% {
-transform: scale(1) rotate(0deg);
-box-shadow: 0 0 8px #ff4d88aa;
-}
-100% {
-transform: scale(1.05) rotate(1deg);
-box-shadow: 0 0 16px #ff4d88ee;
-}
-}
-#password-screen.visible {
-animation: slideUpFade 0.8s ease forwards;
-}
-
-@keyframes slideUpFade {
-0% {
-opacity: 0;
-transform: translateY(20px);
-}
-100% {
-opacity: 1;
-transform: translateY(0);
-}
-}
-</style>  </head>
-
-<body>  <!-- Envelope -->  <div id="envelope-container" onclick="openEnvelope()">      
-  <div id="envelope">      
-    <div class="flap"></div>      
-    <div class="body"></div>      
-    <div class="heart">💌</div>      
-  </div>      
-</div>    <!-- Password screen -->    <div id="password-screen">      
-    <h1>Enter your password 💌</h1>      
-    <input type="date" id="passwordInput" />      
-    <button onclick="checkPassword()">Enter</button>      
-  </div>    <!-- Hidden content -->    <div id="main-content">      
-    <h1><span id="typingText"></span></h1>  <section class="card">      
-  <div class="slideshow-container">      
-    <img src="482057080_987998880095637_8400752815292307246_n.jpg" class="slide active" />      
-    <img src="484052271_988004476761744_3876532500821763193_n.jpg" class="slide" />      
-  </div>      <div class="nav-buttons">      
-    <button onclick="prevSlide()">⟨ Previous</button>      
-    <button onclick="nextSlide()">Next ⟩</button>      
-  </div>      <div id="loveContainer">      
-     ako kamahal😍😘 kaya mahal na mahal kita wala gusto ko lang talagang magpasalamat sa 💕      
-  </div>      
-</section>  
-    <footer>With all my love &hearts;</footer>  
-    <audio id="bgMusic" autoplay loop>      
-  <source src="Paraiso by Smokey Mountain piano cover  sheet music  lyrics.mp3" type="audio/mpeg" />      
-</audio>    </div>       
-   <script>
-  function openEnvelope() {
-    const envelope = document.getElementById("envelope");
-    envelope.classList.add("open");
-
-    setTimeout(() => {
-      document.getElementById("envelope-container").style.display = "none";
-      const passwordScreen = document.getElementById("password-screen");
-      passwordScreen.classList.add("visible");
-    }, 1000);
-  }
-
-  function checkPassword() {
-    const inputDate = document.getElementById("passwordInput").value;
-    const correctDate = "2025-07-02";
-
-    if (inputDate === correctDate) {
-      const passwordScreen = document.getElementById("password-screen");
-      passwordScreen.classList.remove("visible");
-
-      setTimeout(() => {
-        passwordScreen.style.display = "none";
-        const main = document.getElementById("main-content");
-        main.style.display = "block";
-
-        // ⌨️ Typing effect
-        typeAnniversaryMessage("Happy 2nd Anniversary, Mahal ko! 💖", "typingText");
-
-        // 🎉 Confetti
-        confetti({
-          particleCount: 100,
-          spread: 70,
-          origin: { y: 0.6 }
-        });
-
-        // 💖 Floating hearts
-        startFloatingHearts();
-
-        // 🎶 Music
-        document.getElementById("bgMusic").play().catch(() => {});
-      }, 800);
-    } else {
-      alert("Mali ang password mo Mahal ko! 🎁");
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anniversary Surprise 💖</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-  }
 
-  // 💞 Floating hearts function
-  function startFloatingHearts() {
-    for (let i = 0; i < 20; i++) {
-      setTimeout(() => {
-        const heart = document.createElement('div');
-        heart.classList.add('heart');
-
-        // Random position
-        heart.style.left = Math.random() * 100 + 'vw';
-
-        // Random size (mas maliit)
-        const size = 10 + Math.random() * 8;
-        heart.style.width = size + 'px';
-        heart.style.height = size + 'px';
-
-        // Animation duration
-        heart.style.animationDuration = (4 + Math.random() * 2) + 's';
-
-        document.body.appendChild(heart);
-
-        // Remove after animation
-        setTimeout(() => {
-          heart.remove();
-        }, 7000);
-      }, i * 150);
+    body {
+      background: linear-gradient(135deg, #ffe6f0, #fff0f5, #ffe6e6);
+      font-family: 'Quicksand', sans-serif;
+      color: #4d0039;
+      text-align: center;
+      min-height: 100vh;
     }
-  }
 
-  // ✍️ Typing effect
-  function typeAnniversaryMessage(text, elementId, speed = 80) {
-    const el = document.getElementById(elementId);
-    let index = 0;
-    el.innerHTML = "";
+    #envelope-container,
+    #password-screen {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 20px;
+      text-align: center;
+    }
 
-    function type() {
-      if (index < text.length) {
-        el.innerHTML += text.charAt(index);
-        index++;
-        setTimeout(type, speed);
+    #password-screen {
+      display: none;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    #password-screen.visible {
+      display: flex;
+      opacity: 1;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
 
-    type();
-  }
+    #envelope {
+      width: 180px;
+      height: 120px;
+      position: relative;
+      perspective: 800px;
+      animation: pulse 1.5s infinite alternate;
+    }
 
-  // 📸 Slideshow logic
-  const slides = document.querySelectorAll('.slide');
-  let currentIndex = 0;
-  let slideInterval = setInterval(nextSlide, 5000);
+    #envelope .flap {
+      width: 100%;
+      height: 60px;
+      background-color: #ff4d88;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top;
+      transition: transform 0.8s ease;
+      position: absolute;
+      top: 0;
+    }
 
-  function showSlide(index) {
-    slides.forEach((slide, i) => {
-      slide.classList.toggle('active', i === index);
-    });
-  }
+    #envelope .body {
+      width: 100%;
+      height: 60px;
+      background-color: #ff99bb;
+      position: absolute;
+      bottom: 0;
+      border-radius: 0 0 10px 10px;
+    }
 
-  function nextSlide() {
-    currentIndex = (currentIndex + 1) % slides.length;
-    showSlide(currentIndex);
-    resetInterval();
-  }
+    #envelope .heart {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      color: white;
+    }
 
-  function prevSlide() {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    showSlide(currentIndex);
-    resetInterval();
-  }
+    #envelope.open .flap {
+      transform: rotateX(-180deg);
+    }
 
-  function resetInterval() {
-    clearInterval(slideInterval);
-    slideInterval = setInterval(nextSlide, 5000);
-  }
-  </script>  </body>
+    #main-content {
+      display: none;
+      padding: 30px 15px;
+    }
 
-</html>  
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.4rem;
+      color: #d8006a;
+      margin-bottom: 25px;
+    }
 
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 25px;
+      max-width: 500px;
+      margin: 0 auto;
+      box-shadow: 0 12px 30px rgba(255, 102, 153, 0.25);
+    }
+
+    #loveContainer {
+      font-size: 1.2rem;
+      margin-top: 20px;
+    }
+
+    footer {
+      margin-top: 40px;
+      color: #b37799;
+      font-style: italic;
+    }
+
+    input[type="date"] {
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ff4d88;
+      margin-top: 15px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #ff4d88;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* Floating Heart */
+    .heart-float {
+      position: fixed;
+      bottom: -30px;
+      width: 12px;
+      height: 12px;
+      background-color: #ff4d88;
+      border-radius: 10px 10px 0 0;
+      animation: floatUp 6s linear infinite;
+      z-index: 9999;
+      opacity: 0.8;
+    }
+
+    .heart-float::before,
+    .heart-float::after {
+      content: '';
+      position: absolute;
+      background-color: #ff4d88;
+      border-radius: 50%;
+      width: 12px;
+      height: 12px;
+    }
+
+    .heart-float::before {
+      top: -6px;
+      left: 0;
+    }
+
+    .heart-float::after {
+      left: -6px;
+      top: 0;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1) rotate(0deg);
+        box-shadow: 0 0 8px #ff4d88aa;
+      }
+      100% {
+        transform: scale(1.05) rotate(1deg);
+        box-shadow: 0 0 16px #ff4d88ee;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Envelope Section -->
+  <div id="envelope-container" onclick="openEnvelope()">
+    <div id="envelope">
+      <div class="flap"></div>
+      <div class="body"></div>
+      <div class="heart">💌</div>
+    </div>
+  </div>
+
+  <!-- Password Input -->
+  <div id="password-screen">
+    <h1>Enter your password 💌</h1>
+    <input type="date" id="passwordInput" />
+    <button onclick="checkPassword()">Enter</button>
+  </div>
+
+  <!-- Main Content -->
+  <div id="main-content">
+    <h1><span id="typingText"></span></h1>
+    <section class="card">
+      <div id="loveContainer">
+        Ako'y sobrang nagpapasalamat sa iyo, mahal ko.  
+        Salamat sa dalawang taon ng pagmamahalan. 💖  
+      </div>
+    </section>
+    <footer>With all my love &hearts;</footer>
+    <audio id="bgMusic" autoplay loop>
+      <source src="Paraiso by Smokey Mountain piano cover  sheet music  lyrics.mp3" type="audio/mpeg" />
+    </audio>
+  </div>
+
+  <script>
+    function openEnvelope() {
+      document.getElementById("envelope").classList.add("open");
+      setTimeout(() => {
+        document.getElementById("envelope-container").style.display = "none";
+        document.getElementById("password-screen").classList.add("visible");
+      }, 1000);
+    }
+
+    function checkPassword() {
+      const inputDate = document.getElementById("passwordInput").value;
+      const correctDate = "2025-07-02";
+      if (inputDate === correctDate) {
+        document.getElementById("password-screen").style.display = "none";
+        document.getElementById("main-content").style.display = "block";
+
+        // Play music
+        document.getElementById("bgMusic").play().catch(() => {});
+
+        // Typewriter effect
+        typeText("Happy 2nd Anniversary, Mahal ko! 💖", "typingText");
+
+        // Confetti
+        confetti({
+          particleCount: 100,
+          spread: 60,
+          origin: { y: 0.6 }
+        });
+
+        // Floating hearts
+        for (let i = 0; i < 15; i++) {
+          const heart = document.createElement('div');
+          heart.className = 'heart-float';
+          heart.style.left = (Math.random() * 100) + 'vw';
+          heart.style.animationDuration = (4 + Math.random() * 2) + 's';
+          document.body.appendChild(heart);
+        }
+
+      } else {
+        alert("Mali ang password mo Mahal ko! 🎁");
+      }
+    }
+
+    function typeText(text, elementId) {
+      const el = document.getElementById(elementId);
+      let index = 0;
+      el.innerHTML = "";
+      function type() {
+        if (index < text.length) {
+          el.innerHTML += text.charAt(index);
+          index++;
+          setTimeout(type, 80);
+        }
+      }
+      type();
+    }
+  </script>
+</body>
+</html>
